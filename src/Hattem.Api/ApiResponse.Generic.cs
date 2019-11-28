@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Hattem.ApiResponse
+namespace Hattem.Api
 {
     public readonly struct ApiResponse<T> : IApiResponse<T>
     {

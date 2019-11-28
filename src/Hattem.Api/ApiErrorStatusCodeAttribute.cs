@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Hattem.ApiResponse
+namespace Hattem.Api
 {
     /// <summary>
     /// Error status code

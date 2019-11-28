@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Hattem.ApiResponse
+﻿namespace Hattem.Api
 {
     public static class ApiErrorCodes
     {

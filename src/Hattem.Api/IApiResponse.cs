@@ -1,4 +1,4 @@
-﻿namespace Hattem.ApiResponse
+﻿namespace Hattem.Api
 {
     public interface IApiResponse<out T>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Hattem.ApiResponse
+namespace Hattem.Api
 {
     /// <summary>
     /// Error

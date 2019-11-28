@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using Hattem.ApiResponse.Helpers;
+using Hattem.Api.Helpers;
 
-namespace Hattem.ApiResponse.Errors
+namespace Hattem.Api.Errors
 {
     /// <summary>
     /// Invalid type cast

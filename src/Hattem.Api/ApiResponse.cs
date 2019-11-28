@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Hattem.ApiResponse
+namespace Hattem.Api
 {
     public static class ApiResponse
     {

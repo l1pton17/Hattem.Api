@@ -1,4 +1,4 @@
-﻿namespace Hattem.ApiResponse
+﻿namespace Hattem.Api
 {
     public class Error<TData> : Error
         where TData : class

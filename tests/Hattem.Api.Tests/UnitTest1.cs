@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Hattem.ApiResponse.Tests
+namespace Hattem.Api.Tests
 {
     public class UnitTest1
     {

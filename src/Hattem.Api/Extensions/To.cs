@@ -1,4 +1,4 @@
-﻿namespace Hattem.ApiResponse.Extensions
+﻿namespace Hattem.Api.Extensions
 {
     public sealed class To<T>
     {

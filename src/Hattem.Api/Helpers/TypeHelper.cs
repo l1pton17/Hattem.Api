@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace Hattem.ApiResponse.Helpers
+namespace Hattem.Api.Helpers
 {
     internal static class TypeHelper
     {

@@ -1,4 +1,4 @@
-﻿namespace Hattem.ApiResponse
+﻿namespace Hattem.Api
 {
     public readonly struct Unit
     {

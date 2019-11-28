@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hattem.ApiResponse
+namespace Hattem.Api
 {
     /// <summary>
     /// Error code
