@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 using Hattem.Api.Tests.Framework;
 using Hattem.Api.Tests.Framework.Comparers;
 using Hattem.Api.Tests.Framework.Errors;
@@ -110,6 +111,21 @@ namespace Hattem.Api.Tests
             Assert.NotNull(response.Error);
             Assert.Equal(TestError.Default, response.Error, ErrorComparer.Default);
             Assert.Equal(expectedStatusCode, response.StatusCode);
+        }
+
+        [Theory(DisplayName = "Should return async boolean")]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task BooleanAsync(bool expected)
+        {
+            var responseTask = expected
+                ? ApiResponse.Boolean.TrueAsync
+                : ApiResponse.Boolean.FalseAsync;
+
+            var response = await responseTask;
+
+            Assert.True(response.IsOk);
+            Assert.Equal(expected, response.Data);
         }
     }
 }
