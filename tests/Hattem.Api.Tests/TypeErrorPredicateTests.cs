@@ -96,5 +96,31 @@ namespace Hattem.Api.Tests
 
             Assert.False(isMatch);
         }
+
+        [Theory(DisplayName = "Should match with condition")]
+        [MemberData(nameof(ErrorTypeCombinations))]
+        public void Match_WithCondition(params Type[] errorTypes)
+        {
+            var predicate = ErrorPredicate
+                .ByType(errorTypes)
+                .WithCondition(_ => true);
+
+            var isMatch = predicate.IsMatch((Error) Activator.CreateInstance(errorTypes[0]));
+
+            Assert.True(isMatch);
+        }
+
+        [Theory(DisplayName = "Shouldn't match with condition")]
+        [MemberData(nameof(ErrorTypeCombinations))]
+        public void DoNotMatch_WithCondition(params Type[] errorTypes)
+        {
+            var predicate = ErrorPredicate
+                .ByType(errorTypes)
+                .WithCondition(_ => false);
+
+            var isMatch = predicate.IsMatch((Error) Activator.CreateInstance(errorTypes[0]));
+
+            Assert.False(isMatch);
+        }
     }
 }

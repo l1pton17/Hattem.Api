@@ -2,6 +2,11 @@
 
 namespace Hattem.Api.Extensions
 {
+    public interface IErrorPredicate
+    {
+        bool IsMatch(Error error);
+    }
+
     public static class ErrorPredicate
     {
         public static CodeErrorPredicate ByCode(
@@ -14,6 +19,7 @@ namespace Hattem.Api.Extensions
                 errorCode1,
                 errorCode2,
                 errorCode3,
+                null,
                 null);
         }
 
@@ -38,21 +44,28 @@ namespace Hattem.Api.Extensions
                         null,
                         null,
                         null,
-                        errorCodes);
+                        errorCodes,
+                        null);
             }
         }
 
-        public static TypeErrorPredicate ByType<T1>()
+        public static ExactTypeErrorPredicate<T1> ByType<T1>()
+            where T1 : Error
         {
-            return ByType(typeof(T1));
+            return new ExactTypeErrorPredicate<T1>();
         }
 
         public static TypeErrorPredicate ByType<T1, T2>()
+            where T1 : Error
+            where T2 : Error
         {
             return ByType(typeof(T1), typeof(T2));
         }
 
         public static TypeErrorPredicate ByType<T1, T2, T3>()
+            where T1 : Error
+            where T2 : Error
+            where T3 : Error
         {
             return ByType(typeof(T1), typeof(T2), typeof(T3));
         }
@@ -60,12 +73,14 @@ namespace Hattem.Api.Extensions
         public static TypeErrorPredicate ByType(
             Type errorType1,
             Type errorType2 = null,
-            Type errorType3 = null)
+            Type errorType3 = null
+        )
         {
             return new TypeErrorPredicate(
                 errorType1,
                 errorType2,
                 errorType3,
+                null,
                 null);
         }
 
@@ -90,7 +105,8 @@ namespace Hattem.Api.Extensions
                         null,
                         null,
                         null,
-                        errorTypes);
+                        errorTypes,
+                        null);
             }
         }
     }

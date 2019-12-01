@@ -41,5 +41,31 @@ namespace Hattem.Api.Tests
 
             Assert.False(isMatch);
         }
+
+        [Theory(DisplayName = "Should match with condition")]
+        [MemberData(nameof(ErrorCodeCombinations))]
+        public void Match_WithCondition(params string[] errorCodes)
+        {
+            var predicate = ErrorPredicate
+                .ByCode(errorCodes)
+                .WithCondition(_ => true);
+
+            var isMatch = predicate.IsMatch(new Error(errorCodes[0], "test"));
+
+            Assert.True(isMatch);
+        }
+
+        [Theory(DisplayName = "Shouldn't match with condition")]
+        [MemberData(nameof(ErrorCodeCombinations))]
+        public void DoNotMatch_WithCondition(params string[] errorCodes)
+        {
+            var predicate = ErrorPredicate
+                .ByCode(errorCodes)
+                .WithCondition(_ => false);
+
+            var isMatch = predicate.IsMatch(new Error(errorCodes[0], "test"));
+
+            Assert.False(isMatch);
+        }
     }
 }
