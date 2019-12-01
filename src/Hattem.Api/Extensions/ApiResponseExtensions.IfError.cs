@@ -29,6 +29,29 @@ namespace Hattem.Api.Extensions
         /// Switch to <paramref name="ifError"/> flow if response returns error
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TError"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
+        /// <param name="ifError">Flow to execute in case of error</param>
+        /// <returns></returns>
+        public static ApiResponse<T> IfError<T, TError>(
+            this ApiResponse<T> source,
+            ExactTypeErrorPredicate<TError> errorPredicate,
+            Func<TError, ApiResponse<T>> ifError)
+            where TError : Error
+        {
+            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            {
+                return ifError((TError) source.Error);
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Switch to <paramref name="ifError"/> flow if response returns error
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
