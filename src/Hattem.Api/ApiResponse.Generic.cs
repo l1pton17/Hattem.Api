@@ -62,10 +62,5 @@ namespace Hattem.Api
         {
             return new ApiResponse<T>(statusCode, Data, Error);
         }
-
-        public static ApiResponse<T> Ok()
-        {
-            return new ApiResponse<T>();
-        }
     }
 }

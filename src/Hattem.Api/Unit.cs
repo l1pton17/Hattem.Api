@@ -1,7 +1,11 @@
 ﻿namespace Hattem.Api
 {
-    public readonly struct Unit
+    public sealed class Unit
     {
         public static readonly Unit Default = new Unit();
+
+        private Unit()
+        {
+        }
     }
 }
