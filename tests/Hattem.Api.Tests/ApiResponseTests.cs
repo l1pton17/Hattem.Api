@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Hattem.Api.Tests
 {
-    [CategoryTrait("ApiResponse")]
+    [CategoryTrait(nameof(ApiResponse))]
     public sealed class ApiResponseTests
     {
         [Fact(DisplayName = "IsOk should be false and HasErrors should be true if error isn't null")]
