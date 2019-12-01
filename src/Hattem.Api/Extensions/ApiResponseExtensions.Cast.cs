@@ -6,8 +6,6 @@ namespace Hattem.Api.Extensions
     partial class ApiResponseExtensions
     {
         public static ApiResponse<U> Cast<T, U>(this ApiResponse<T> input, To<U> _)
-            where T : class
-            where U : class
         {
             if (input.IsOk)
             {
@@ -25,8 +23,6 @@ namespace Hattem.Api.Extensions
         }
 
         public static async Task<ApiResponse<U>> Cast<T, U>(this Task<ApiResponse<T>> input, To<U> type)
-            where T : class
-            where U : class
         {
             var response = await input;
 
