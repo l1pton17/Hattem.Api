@@ -6,7 +6,7 @@ using Xunit.Sdk;
 namespace Hattem.Api.Tests.Framework
 {
     [TraitDiscoverer(CategoryTraitDiscoverer.FullyQualifiedName, CategoryTraitDiscoverer.AssemblyName)]
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public sealed class CategoryTraitAttribute : Attribute, ITraitAttribute
     {
         public string Category { get; }
