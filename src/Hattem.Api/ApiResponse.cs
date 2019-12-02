@@ -33,14 +33,14 @@ namespace Hattem.Api
 
         public static Task<ApiResponse<Unit>> OkAsync(int? statusCode)
         {
-            return statusCode.HasValue
-                ? _okStatusCodeCache.GetOrAdd(statusCode.Value, ValueFactory)
-                : _okAsync;
-
-            Task<ApiResponse<Unit>> ValueFactory(int s)
+            static Task<ApiResponse<Unit>> ValueFactory(int s)
             {
                 return Task.FromResult(new ApiResponse<Unit>(s, Unit.Default));
             }
+
+            return statusCode.HasValue
+                ? _okStatusCodeCache.GetOrAdd(statusCode.Value, ValueFactory)
+                : _okAsync;
         }
 
         public static ApiResponse<Unit> Ok()
