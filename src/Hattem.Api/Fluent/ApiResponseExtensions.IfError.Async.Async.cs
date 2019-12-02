@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Hattem.Api.Fluent.ErrorPredicates;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {
@@ -16,11 +17,13 @@ namespace Hattem.Api.Extensions
         public static async Task<ApiResponse<T>> IfError<T>(
             this Task<ApiResponse<T>> source,
             IErrorPredicate errorPredicate,
-            Func<Error, ApiResponse<T>> ifError)
+            Func<Error, Task<ApiResponse<T>>> ifError)
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.IfError(errorPredicate, ifError);
+            return await response
+                .IfError(errorPredicate, ifError)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -34,11 +37,13 @@ namespace Hattem.Api.Extensions
         public static async Task<ApiResponse<T>> IfError<T>(
             this Task<ApiResponse<T>> source,
             CodeErrorPredicate errorPredicate,
-            Func<Error, ApiResponse<T>> ifError)
+            Func<Error, Task<ApiResponse<T>>> ifError)
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.IfErrorRef(ref errorPredicate, ifError);
+            return await response
+                .IfError(errorPredicate, ifError)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -53,12 +58,14 @@ namespace Hattem.Api.Extensions
         public static async Task<ApiResponse<T>> IfError<T, TError>(
             this Task<ApiResponse<T>> source,
             ExactTypeErrorPredicate<TError> errorPredicate,
-            Func<TError, ApiResponse<T>> ifError)
+            Func<TError, Task<ApiResponse<T>>> ifError)
             where TError : Error
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.IfErrorRef(ref errorPredicate, ifError);
+            return await response
+                .IfError(errorPredicate, ifError)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -72,11 +79,13 @@ namespace Hattem.Api.Extensions
         public static async Task<ApiResponse<T>> IfError<T>(
             this Task<ApiResponse<T>> source,
             TypeErrorPredicate errorPredicate,
-            Func<Error, ApiResponse<T>> ifError)
+            Func<Error, Task<ApiResponse<T>>> ifError)
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.IfErrorRef(ref errorPredicate, ifError);
+            return await response
+                .IfError(errorPredicate, ifError)
+                .ConfigureAwait(false);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Hattem.Api
             Error = error ?? throw new ArgumentNullException(nameof(error));
         }
 
-        public ApiResponse(int statusCode, Error error)
+        public ApiResponse(int? statusCode, Error error)
         {
             Data = default;
             StatusCode = statusCode;

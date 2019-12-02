@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {
@@ -9,7 +9,7 @@ namespace Hattem.Api.Extensions
         )
         {
             return source.IsOk
-                ? ApiResponse.OkAsync()
+                ? ApiResponse.OkAsync(source.StatusCode)
                 : Task.FromResult(source);
         }
 

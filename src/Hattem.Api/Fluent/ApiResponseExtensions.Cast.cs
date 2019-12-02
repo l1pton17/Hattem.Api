@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Hattem.Api.Errors;
+using Hattem.Api.Extensions;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {

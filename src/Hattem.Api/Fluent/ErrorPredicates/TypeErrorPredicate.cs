@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent.ErrorPredicates
 {
     public readonly struct TypeErrorPredicate : IErrorPredicate
     {

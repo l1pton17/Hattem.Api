@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {

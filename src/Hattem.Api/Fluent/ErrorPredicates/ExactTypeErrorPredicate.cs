@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent.ErrorPredicates
 {
     public readonly struct ExactTypeErrorPredicate<TError> : IErrorPredicate
         where TError : Error

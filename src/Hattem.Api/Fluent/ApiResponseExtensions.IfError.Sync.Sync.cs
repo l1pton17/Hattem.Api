@@ -1,6 +1,7 @@
 ﻿using System;
+using Hattem.Api.Fluent.ErrorPredicates;
 
-namespace Hattem.Api.Extensions
+namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {

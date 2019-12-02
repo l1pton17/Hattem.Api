@@ -1,4 +1,6 @@
-﻿namespace Hattem.Api.Extensions
+﻿using Hattem.Api.Fluent;
+
+namespace Hattem.Api.Extensions
 {
     public static class ErrorExtensions
     {

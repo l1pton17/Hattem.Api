@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Hattem.Api.Extensions;
+using Hattem.Api.Fluent;
 using Hattem.Api.Tests.Framework;
 using Hattem.Api.Tests.Framework.Comparers;
 using Hattem.Api.Tests.Framework.Errors;
 using Moq;
 using Xunit;
 
-namespace Hattem.Api.Tests
+namespace Hattem.Api.Tests.Fluent
 {
     [CategoryTrait("Then")]
     public sealed class ThenTests
@@ -21,7 +21,8 @@ namespace Hattem.Api.Tests
 
             var mock = new Mock<ISyncResponseProvider<int, int>>();
 
-            mock.Setup(v => v.Execute(data)).Returns(ApiResponse.Ok(expected));
+            mock.Setup(v => v.Execute(data))
+                .Returns(ApiResponse.Ok(expected));
 
             var response = await ApiResponse
                 .Ok(data)
@@ -39,7 +40,8 @@ namespace Hattem.Api.Tests
         {
             var mock = new Mock<ISyncResponseProvider<Unit, Unit>>();
 
-            mock.Setup(v => v.Execute(Unit.Default)).Returns(ApiResponse.Ok());
+            mock.Setup(v => v.Execute(Unit.Default))
+                .Returns(ApiResponse.Ok());
 
             var response = await ApiResponse
                 .Error(TestError.Default)
@@ -64,7 +66,8 @@ namespace Hattem.Api.Tests
 
             var mock = new Mock<IAsyncResponseProvider<int, int>>();
 
-            mock.Setup(v => v.Execute(data)).Returns(ApiResponse.Ok(expected).AsTask());
+            mock.Setup(v => v.Execute(data))
+                .Returns(ApiResponse.Ok(expected).AsTask());
 
             var response = await ApiResponse
                 .Ok(data)
@@ -82,7 +85,8 @@ namespace Hattem.Api.Tests
         {
             var mock = new Mock<IAsyncResponseProvider<Unit, Unit>>();
 
-            mock.Setup(v => v.Execute(Unit.Default)).Returns(ApiResponse.OkAsync());
+            mock.Setup(v => v.Execute(Unit.Default))
+                .Returns(ApiResponse.OkAsync());
 
             var response = await ApiResponse
                 .Error(TestError.Default)
@@ -107,7 +111,8 @@ namespace Hattem.Api.Tests
 
             var mock = new Mock<IAsyncResponseProvider<int, int>>();
 
-            mock.Setup(v => v.Execute(data)).Returns(ApiResponse.Ok(expected).AsTask());
+            mock.Setup(v => v.Execute(data))
+                .Returns(ApiResponse.Ok(expected).AsTask());
 
             var response = await ApiResponse
                 .Ok(data)
@@ -124,7 +129,8 @@ namespace Hattem.Api.Tests
         {
             var mock = new Mock<IAsyncResponseProvider<Unit, Unit>>();
 
-            mock.Setup(v => v.Execute(Unit.Default)).Returns(ApiResponse.OkAsync());
+            mock.Setup(v => v.Execute(Unit.Default))
+                .Returns(ApiResponse.OkAsync());
 
             var response = await ApiResponse
                 .Error(TestError.Default)
@@ -148,7 +154,8 @@ namespace Hattem.Api.Tests
 
             var mock = new Mock<ISyncResponseProvider<int, int>>();
 
-            mock.Setup(v => v.Execute(data)).Returns(ApiResponse.Ok(expected));
+            mock.Setup(v => v.Execute(data))
+                .Returns(ApiResponse.Ok(expected));
 
             var response = ApiResponse
                 .Ok(data)
@@ -165,7 +172,8 @@ namespace Hattem.Api.Tests
         {
             var mock = new Mock<ISyncResponseProvider<Unit, Unit>>();
 
-            mock.Setup(v => v.Execute(Unit.Default)).Returns(ApiResponse.Ok());
+            mock.Setup(v => v.Execute(Unit.Default))
+                .Returns(ApiResponse.Ok());
 
             var response = ApiResponse
                 .Error(TestError.Default)

@@ -1,4 +1,4 @@
-﻿namespace Hattem.Api.Extensions
+﻿namespace Hattem.Api.Fluent
 {
     public sealed class Is<T>
     {

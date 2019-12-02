@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hattem.Api.Extensions;
+using Hattem.Api.Fluent;
 using Hattem.Api.Tests.Framework;
 using Hattem.Api.Tests.Framework.Comparers;
 using Hattem.Api.Tests.Framework.Errors;
 using Moq;
 using Xunit;
 
-namespace Hattem.Api.Tests
+namespace Hattem.Api.Tests.Fluent
 {
     [CategoryTrait("Filter collections")]
     public sealed class FilterCollectionsTests

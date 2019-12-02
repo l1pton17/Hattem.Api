@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hattem.Api.Extensions;
+using Hattem.Api.Fluent;
+using Hattem.Api.Fluent.ErrorPredicates;
 using Hattem.Api.Tests.Framework;
 using Hattem.Api.Tests.Framework.Errors;
 using Xunit;
 
-namespace Hattem.Api.Tests
+namespace Hattem.Api.Tests.Fluent.ErrorPredicates
 {
     [CategoryTrait(nameof(TypeErrorPredicate))]
     public sealed class TypeErrorPredicateTests

@@ -1,10 +1,11 @@
 ﻿using Hattem.Api.Extensions;
+using Hattem.Api.Fluent;
 using Hattem.Api.Tests.Framework;
 using Hattem.Api.Tests.Framework.Comparers;
 using Hattem.Api.Tests.Framework.Errors;
 using Xunit;
 
-namespace Hattem.Api.Tests
+namespace Hattem.Api.Tests.Extensions
 {
     [CategoryTrait("ErrorExtensions")]
     public sealed class ErrorExtensionsTests
