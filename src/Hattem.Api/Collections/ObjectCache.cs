@@ -27,7 +27,7 @@ namespace Hattem.Api.Collections
             var index = key.GetHashCode() % _maxCapacity;
             var (cacheKey, cacheValue) = _values.GetOrAdd(index, v => (key, valueFactory(key)));
 
-            if (cacheKey.Equals(key))
+            if (key.Equals(cacheKey))
             {
                 return cacheValue;
             }
