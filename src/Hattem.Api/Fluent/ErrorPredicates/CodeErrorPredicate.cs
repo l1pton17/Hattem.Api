@@ -36,9 +36,9 @@ namespace Hattem.Api.Fluent.ErrorPredicates
             }
 
             var isValid = error.Code == _errorCode1
-             || error.Code == _errorCode2
-             || error.Code == _errorCode3
-             || (_errorCodes?.Contains(error.Code) ?? false);
+                || error.Code == _errorCode2
+                || error.Code == _errorCode3
+                || (_errorCodes?.Contains(error.Code) ?? false);
 
             return isValid && (_condition?.Invoke(error) ?? true);
         }

@@ -10,6 +10,11 @@ namespace Hattem.Api.Fluent
 
     public static class ErrorPredicate
     {
+        public static IErrorPredicate Any()
+        {
+            return AnyErrorPredicate.Default;
+        }
+
         public static CodeErrorPredicate ByCode(
             string errorCode1,
             string errorCode2 = null,
@@ -26,28 +31,19 @@ namespace Hattem.Api.Fluent
 
         public static CodeErrorPredicate ByCode(params string[] errorCodes)
         {
-            switch (errorCodes.Length)
+            return errorCodes.Length switch
             {
-                case 0:
-                    throw new ArgumentException("Should consist of some error codes", nameof(errorCodes));
-
-                case 1:
-                    return ByCode(errorCodes[0]);
-
-                case 2:
-                    return ByCode(errorCodes[0], errorCodes[1]);
-
-                case 3:
-                    return ByCode(errorCodes[0], errorCodes[1], errorCodes[2]);
-
-                default:
-                    return new CodeErrorPredicate(
-                        null,
-                        null,
-                        null,
-                        errorCodes,
-                        null);
-            }
+                0 => throw new ArgumentException("Should consist of some error codes", nameof(errorCodes)),
+                1 => ByCode(errorCodes[0]),
+                2 => ByCode(errorCodes[0], errorCodes[1]),
+                3 => ByCode(errorCodes[0], errorCodes[1], errorCodes[2]),
+                _ => new CodeErrorPredicate(
+                    null,
+                    null,
+                    null,
+                    errorCodes,
+                    null),
+            };
         }
 
         public static ExactTypeErrorPredicate<T1> ByType<T1>()
@@ -87,28 +83,19 @@ namespace Hattem.Api.Fluent
 
         public static TypeErrorPredicate ByType(params Type[] errorTypes)
         {
-            switch (errorTypes.Length)
+            return errorTypes.Length switch
             {
-                case 0:
-                    throw new ArgumentException("Should consist of some error types", nameof(errorTypes));
-
-                case 1:
-                    return ByType(errorTypes[0]);
-
-                case 2:
-                    return ByType(errorTypes[0], errorTypes[1]);
-
-                case 3:
-                    return ByType(errorTypes[0], errorTypes[1], errorTypes[2]);
-
-                default:
-                    return new TypeErrorPredicate(
-                        null,
-                        null,
-                        null,
-                        errorTypes,
-                        null);
-            }
+                0 => throw new ArgumentException("Should consist of some error types", nameof(errorTypes)),
+                1 => ByType(errorTypes[0]),
+                2 => ByType(errorTypes[0], errorTypes[1]),
+                3 => ByType(errorTypes[0], errorTypes[1], errorTypes[2]),
+                _ => new TypeErrorPredicate(
+                    null,
+                    null,
+                    null,
+                    errorTypes,
+                    null),
+            };
         }
     }
 }

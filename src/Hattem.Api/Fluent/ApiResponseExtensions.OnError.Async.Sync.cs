@@ -11,23 +11,6 @@ namespace Hattem.Api.Fluent
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
-        /// <param name="onError"></param>
-        /// <returns></returns>
-        public static async Task<ApiResponse<T>> OnError<T>(
-            this Task<ApiResponse<T>> source,
-            Action<Error> onError
-        )
-        {
-            var response = await source.ConfigureAwait(false);
-
-            return response.OnError(onError);
-        }
-
-        /// <summary>
-        /// Execute <paramref name="onError"/> if response has errors
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
         /// <param name="errorPredicate">Error predicate</param>
         /// <param name="onError"></param>
         /// <returns></returns>
@@ -58,7 +41,7 @@ namespace Hattem.Api.Fluent
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.OnError(errorPredicate, onError);
+            return response.OnErrorRef(ref errorPredicate, onError);
         }
 
         /// <summary>
@@ -70,20 +53,16 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Error predicate</param>
         /// <param name="onError"></param>
         /// <returns></returns>
-        public static ApiResponse<T> OnError<T, TError>(
+        public static async Task<ApiResponse<T>> OnError<T, TError>(
             this Task<ApiResponse<T>> source,
             ExactTypeErrorPredicate<TError> errorPredicate,
             Action<TError> onError
         )
             where TError : Error
         {
-            if (source.HasErrors
-             && errorPredicate.IsMatch(source.Error))
-            {
-                onError((TError) source.Error);
-            }
+            var response = await source.ConfigureAwait(false);
 
-            return source;
+            return response.OnErrorRef(ref errorPredicate, onError);
         }
 
         /// <summary>
@@ -94,40 +73,15 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Error predicate</param>
         /// <param name="onError"></param>
         /// <returns></returns>
-        public static ApiResponse<T> OnError<T>(
-            this ApiResponse<T> source,
+        public static async Task<ApiResponse<T>> OnError<T>(
+            this Task<ApiResponse<T>> source,
             TypeErrorPredicate errorPredicate,
             Action<Error> onError
         )
         {
-            if (source.HasErrors
-             && errorPredicate.IsMatch(source.Error))
-            {
-                onError(source.Error);
-            }
+            var response = await source.ConfigureAwait(false);
 
-            return source;
-        }
-
-        /// <summary>
-        /// Execute <paramref name="onError"/> if response has errors
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TOnError"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="onError"></param>
-        /// <returns></returns>
-        [Obsolete("Use " + nameof(IfError) + " instead", error: true)]
-        public static ApiResponse<T> OnError<T, TOnError>(
-
-            // ReSharper disable once UnusedParameter.Global
-            this ApiResponse<T> source,
-
-            // ReSharper disable once UnusedParameter.Global
-            Func<Error, ApiResponse<TOnError>> onError
-        )
-        {
-            throw new NotImplementedException();
+            return response.OnErrorRef(ref errorPredicate, onError);
         }
 
         /// <summary>
@@ -140,8 +94,8 @@ namespace Hattem.Api.Fluent
         /// <param name="onError"></param>
         /// <returns></returns>
         [Obsolete("Use " + nameof(IfError) + " instead", error: true)]
-        public static ApiResponse<T> OnError<T, TOnError>(
-            this ApiResponse<T> source,
+        public static Task<ApiResponse<T>> OnError<T, TOnError>(
+            this Task<ApiResponse<T>> source,
             IErrorPredicate errorPredicate,
             Func<Error, ApiResponse<TOnError>> onError
         )
@@ -159,8 +113,8 @@ namespace Hattem.Api.Fluent
         /// <param name="onError"></param>
         /// <returns></returns>
         [Obsolete("Use " + nameof(IfError) + " instead", error: true)]
-        public static ApiResponse<T> OnError<T, TOnError>(
-            this ApiResponse<T> source,
+        public static Task<ApiResponse<T>> OnError<T, TOnError>(
+            this Task<ApiResponse<T>> source,
             CodeErrorPredicate errorPredicate,
             Func<Error, ApiResponse<TOnError>> onError
         )
@@ -179,10 +133,10 @@ namespace Hattem.Api.Fluent
         /// <param name="onError"></param>
         /// <returns></returns>
         [Obsolete("Use " + nameof(IfError) + " instead", error: true)]
-        public static ApiResponse<T> OnError<T, TError, TOnError>(
-            this ApiResponse<T> source,
+        public static Task<ApiResponse<T>> OnError<T, TError, TOnError>(
+            this Task<ApiResponse<T>> source,
             ExactTypeErrorPredicate<TError> errorPredicate,
-            Func<Error, ApiResponse<TOnError>> onError
+            Func<TError, ApiResponse<TOnError>> onError
         )
             where TError : Error
         {
@@ -199,8 +153,8 @@ namespace Hattem.Api.Fluent
         /// <param name="onError"></param>
         /// <returns></returns>
         [Obsolete("Use " + nameof(IfError) + " instead", error: true)]
-        public static ApiResponse<T> OnError<T, TOnError>(
-            this ApiResponse<T> source,
+        public static Task<ApiResponse<T>> OnError<T, TOnError>(
+            this Task<ApiResponse<T>> source,
             TypeErrorPredicate errorPredicate,
             Func<Error, ApiResponse<TOnError>> onError
         )
