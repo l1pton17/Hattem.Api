@@ -19,6 +19,11 @@ namespace Hattem.Api.Fluent
             Action<Error> onError
         )
         {
+            if (errorPredicate == null)
+            {
+                throw new ArgumentNullException(nameof(errorPredicate));
+            }
+
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
                 onError(source.Error);

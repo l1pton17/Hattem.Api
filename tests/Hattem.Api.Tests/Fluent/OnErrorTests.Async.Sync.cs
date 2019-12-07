@@ -12,7 +12,7 @@ namespace Hattem.Api.Tests.Fluent
     partial class OnErrorTests
     {
         [Theory(DisplayName = "(Async, Sync) Shouldn't execute on error if response is ok")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Sync_IsOk_DoesNotExecuteOnError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -36,7 +36,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Sync) Should execute OnError if error passed predicate")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Sync_HasErrors_ValidError_ExecuteOnError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -58,7 +58,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Sync) Shouldn't execute OnError if error didn't pass predicate")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Sync_HasErrors_InvalidError_DoesNotExecuteOnError(
             IErrorPredicate errorPredicate,
             Error validError,

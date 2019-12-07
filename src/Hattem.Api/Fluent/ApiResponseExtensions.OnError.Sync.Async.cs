@@ -20,6 +20,11 @@ namespace Hattem.Api.Fluent
             Func<Error, Task> onError
         )
         {
+            if (errorPredicate == null)
+            {
+                throw new ArgumentNullException(nameof(errorPredicate));
+            }
+
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
                 await onError(source.Error).ConfigureAwait(false);

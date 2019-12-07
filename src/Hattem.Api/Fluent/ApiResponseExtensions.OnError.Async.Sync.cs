@@ -20,6 +20,11 @@ namespace Hattem.Api.Fluent
             Action<Error> onError
         )
         {
+            if (errorPredicate == null)
+            {
+                throw new ArgumentNullException(nameof(errorPredicate));
+            }
+
             var response = await source.ConfigureAwait(false);
 
             return response.OnError(errorPredicate, onError);

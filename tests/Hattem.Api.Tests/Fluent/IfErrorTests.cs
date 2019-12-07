@@ -12,7 +12,7 @@ namespace Hattem.Api.Tests.Fluent
     [CategoryTrait("IfError")]
     public sealed class IfErrorTests
     {
-        public static IEnumerable<object[]> ErrorCodePredicates
+        public static IEnumerable<object[]> ErrorPredicates
         {
             get
             {
@@ -89,7 +89,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Sync) Should call ifError if response has errors and error match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public void Sync_Sync_HasErrors_ErrorMatch_CallIfError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -116,7 +116,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Sync) Shouldn't call ifError if response has errors but error doesn't match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public void Sync_Sync_HasErrors_ErrorDoesNotMatch_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -143,7 +143,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Sync) Shouldn't call ifError if response is ok")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public void Sync_Sync_IsOk_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -223,7 +223,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Sync) Should call ifError if response has errors and error match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Sync_HasErrors_ErrorMatch_CallIfError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -251,7 +251,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Sync) Shouldn't call ifError if response has errors but error doesn't match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Sync_HasErrors_ErrorDoesNotMatch_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -279,7 +279,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Sync) Shouldn't call ifError if response is ok")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Sync_IsOk_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -361,7 +361,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Async) Should call ifError if response has errors and error match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Sync_Async_HasErrors_ErrorMatch_CallIfError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -388,7 +388,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Async) Shouldn't call ifError if response has errors but error doesn't match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Sync_Async_HasErrors_ErrorDoesNotMatch_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -415,7 +415,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Async) Shouldn't call ifError if response is ok")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Sync_Async_IsOk_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -495,7 +495,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Async) Should call ifError if response has errors and error match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Async_HasErrors_ErrorMatch_CallIfError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -523,7 +523,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Async) Shouldn't call ifError if response has errors but error doesn't match")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Async_HasErrors_ErrorDoesNotMatch_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,
@@ -551,7 +551,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Async, Async) Shouldn't call ifError if response is ok")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public async Task Async_Async_IsOk_DoNotCallIfError(
             IErrorPredicate errorPredicate,
             Error _,

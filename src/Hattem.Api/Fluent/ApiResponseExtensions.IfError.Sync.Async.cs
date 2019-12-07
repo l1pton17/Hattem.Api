@@ -19,6 +19,11 @@ namespace Hattem.Api.Fluent
             IErrorPredicate errorPredicate,
             Func<Error, Task<ApiResponse<T>>> ifError)
         {
+            if (errorPredicate == null)
+            {
+                throw new ArgumentNullException(nameof(errorPredicate));
+            }
+
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
                 return await ifError(source.Error).ConfigureAwait(false);

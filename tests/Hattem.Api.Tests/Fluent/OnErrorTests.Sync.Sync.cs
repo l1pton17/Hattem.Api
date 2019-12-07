@@ -13,7 +13,7 @@ namespace Hattem.Api.Tests.Fluent
     public sealed partial class OnErrorTests
     {
         // ReSharper disable once MemberCanBePrivate.Global
-        public static IEnumerable<object[]> ErrorCodePredicates
+        public static IEnumerable<object[]> ErrorPredicates
         {
             get
             {
@@ -41,7 +41,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Sync) Shouldn't execute on error if response is ok")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public void Sync_Sync_IsOk_DoesNotExecuteOnError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -64,7 +64,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Sync) Should execute OnError if error passed predicate")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public void Sync_Sync_HasErrors_ValidError_ExecuteOnError(
             IErrorPredicate errorPredicate,
             Error validError,
@@ -85,7 +85,7 @@ namespace Hattem.Api.Tests.Fluent
         }
 
         [Theory(DisplayName = "(Sync, Sync) Shouldn't execute OnError if error didn't pass predicate")]
-        [MemberData(nameof(ErrorCodePredicates))]
+        [MemberData(nameof(ErrorPredicates))]
         public void Sync_Sync_HasErrors_InvalidError_DoesNotExecuteOnError(
             IErrorPredicate errorPredicate,
             Error validError,
