@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Hattem.Api.Fluent
 {
@@ -11,23 +12,23 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="onSuccess">Action to be executed</param>
         /// <returns></returns>
-        public static ApiResponse<T> OnSuccess<T>(
+        public static async Task<ApiResponse<T>> OnSuccess<T>(
             this ApiResponse<T> source,
-            Action<T> onSuccess
+            Func<T, Task> onSuccess
         )
         {
             if (source.IsOk)
             {
-                onSuccess(source.Data);
+                await onSuccess(source.Data).ConfigureAwait(false);
             }
 
             return source;
         }
 
         [Obsolete("Use Then instead", error: true)]
-        public static ApiResponse<T> OnSuccess<T, TOnSuccess>(
+        public static Task<ApiResponse<T>> OnSuccess<T, TOnSuccess>(
             this ApiResponse<T> source,
-            Func<T, ApiResponse<TOnSuccess>> onSuccess
+            Func<T, Task<ApiResponse<TOnSuccess>>> onSuccess
         )
         {
             throw new NotImplementedException();
