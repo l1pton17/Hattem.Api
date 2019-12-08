@@ -20,7 +20,7 @@ namespace Hattem.Api.Fluent
         public static async Task<ApiResponse<Unit>> Parallel<T>(
             this IEnumerable<T> source,
             int degreeOfParallelism,
-            Func<T, Task<ApiResponse<Unit>>> action)
+            Func<T, ApiResponse<Unit>> action)
         {
             if (source == null)
             {
@@ -35,14 +35,13 @@ namespace Hattem.Api.Fluent
                     .GetPartitions(degreeOfParallelism)
                     .Select(
                         partition => Task.Run(
-                            async () =>
+                            () =>
                             {
                                 using (partition)
                                 {
                                     while (partition.MoveNext())
                                     {
-                                        var response = await action(partition.Current)
-                                            .ConfigureAwait(false);
+                                        var response = action(partition.Current);
 
                                         if (response.HasErrors)
                                         {
@@ -68,7 +67,7 @@ namespace Hattem.Api.Fluent
         /// <returns></returns>
         public static Task<ApiResponse<Unit>> Parallel<T>(
             this IEnumerable<T> source,
-            Func<T, Task<ApiResponse<Unit>>> action)
+            Func<T, ApiResponse<Unit>> action)
         {
             return Parallel(
                 source,
