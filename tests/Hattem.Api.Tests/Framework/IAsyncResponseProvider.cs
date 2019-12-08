@@ -2,6 +2,11 @@
 
 namespace Hattem.Api.Tests.Framework
 {
+    public interface IAsyncResponseProvider<TOutput>
+    {
+        Task<ApiResponse<TOutput>> Execute();
+    }
+
     public interface IAsyncResponseProvider<in TInput,TOutput>
     {
         Task<ApiResponse<TOutput>> Execute(TInput input);

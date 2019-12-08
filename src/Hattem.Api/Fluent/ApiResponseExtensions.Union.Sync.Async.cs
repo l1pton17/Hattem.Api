@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Hattem.Api.Fluent
 {
@@ -12,9 +13,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2)> Union<T1, T2>(
+        public static async Task<ApiResponse<(T1, T2)>> Union<T1, T2>(
             this ApiResponse<T1> source,
-            Func<T1, ApiResponse<T2>> selector
+            Func<T1, Task<ApiResponse<T2>>> selector
         )
         {
             if (source.HasErrors)
@@ -24,7 +25,7 @@ namespace Hattem.Api.Fluent
                     .WithStatusCode(source.StatusCode);
             }
 
-            var output = selector(source.Data);
+            var output = await selector(source.Data).ConfigureAwait(false);
 
             if (output.HasErrors)
             {
@@ -47,9 +48,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2, T3)> Union<T1, T2, T3>(
+        public static Task<ApiResponse<(T1, T2, T3)>> Union<T1, T2, T3>(
             this ApiResponse<(T1, T2)> source,
-            Func<ApiResponse<T3>> selector
+            Func<Task<ApiResponse<T3>>> selector
         )
         {
             return source.Union((t1, t2) => selector());
@@ -64,9 +65,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2, T3)> Union<T1, T2, T3>(
+        public static async Task<ApiResponse<(T1, T2, T3)>> Union<T1, T2, T3>(
             this ApiResponse<(T1, T2)> source,
-            Func<T1, T2, ApiResponse<T3>> selector
+            Func<T1, T2, Task<ApiResponse<T3>>> selector
         )
         {
             if (source.HasErrors)
@@ -76,7 +77,8 @@ namespace Hattem.Api.Fluent
                     .WithStatusCode(source.StatusCode);
             }
 
-            var output = selector(source.Data.Item1, source.Data.Item2);
+            var output = await selector(source.Data.Item1, source.Data.Item2)
+                .ConfigureAwait(false);
 
             if (output.HasErrors)
             {
@@ -100,9 +102,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2, T3, T4)> Union<T1, T2, T3, T4>(
+        public static Task<ApiResponse<(T1, T2, T3, T4)>> Union<T1, T2, T3, T4>(
             this ApiResponse<(T1, T2, T3)> source,
-            Func<ApiResponse<T4>> selector
+            Func<Task<ApiResponse<T4>>> selector
         )
         {
             return source.Union((t1, t2, t3) => selector());
@@ -118,9 +120,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2, T3, T4)> Union<T1, T2, T3, T4>(
+        public static async Task<ApiResponse<(T1, T2, T3, T4)>> Union<T1, T2, T3, T4>(
             this ApiResponse<(T1, T2, T3)> source,
-            Func<T1, T2, T3, ApiResponse<T4>> selector
+            Func<T1, T2, T3, Task<ApiResponse<T4>>> selector
         )
         {
             if (source.HasErrors)
@@ -130,10 +132,11 @@ namespace Hattem.Api.Fluent
                     .WithStatusCode(source.StatusCode);
             }
 
-            var output = selector(
-                source.Data.Item1,
-                source.Data.Item2,
-                source.Data.Item3);
+            var output = await selector(
+                    source.Data.Item1,
+                    source.Data.Item2,
+                    source.Data.Item3)
+                .ConfigureAwait(false);
 
             if (output.HasErrors)
             {
@@ -158,9 +161,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2, T3, T4, T5)> Union<T1, T2, T3, T4, T5>(
+        public static Task<ApiResponse<(T1, T2, T3, T4, T5)>> Union<T1, T2, T3, T4, T5>(
             this ApiResponse<(T1, T2, T3, T4)> source,
-            Func<ApiResponse<T5>> selector
+            Func<Task<ApiResponse<T5>>> selector
         )
         {
             return source.Union(
@@ -183,9 +186,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static ApiResponse<(T1, T2, T3, T4, T5)> Union<T1, T2, T3, T4, T5>(
+        public static async Task<ApiResponse<(T1, T2, T3, T4, T5)>> Union<T1, T2, T3, T4, T5>(
             this ApiResponse<(T1, T2, T3, T4)> source,
-            Func<T1, T2, T3, T4, ApiResponse<T5>> selector
+            Func<T1, T2, T3, T4, Task<ApiResponse<T5>>> selector
         )
         {
             if (source.HasErrors)
@@ -195,11 +198,12 @@ namespace Hattem.Api.Fluent
                     .WithStatusCode(source.StatusCode);
             }
 
-            var output = selector(
-                source.Data.Item1,
-                source.Data.Item2,
-                source.Data.Item3,
-                source.Data.Item4);
+            var output = await selector(
+                    source.Data.Item1,
+                    source.Data.Item2,
+                    source.Data.Item3,
+                    source.Data.Item4)
+                .ConfigureAwait(false);
 
             if (output.HasErrors)
             {

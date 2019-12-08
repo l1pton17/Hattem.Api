@@ -109,7 +109,7 @@ namespace Hattem.Api.Tests.Fluent
             var response = ApiResponse
                 .Ok(data1)
                 .Union(_ => ApiResponse.Ok(data2))
-                .And(() => ApiResponse.Ok(data3))
+                .Union(() => ApiResponse.Ok(data3))
                 .Then(mock.Object.Execute);
 
             mock.Verify(v => v.Execute(data1, data2, data3), Times.Once());
@@ -132,7 +132,7 @@ namespace Hattem.Api.Tests.Fluent
             var response = ApiResponse
                 .Ok(data1)
                 .Union(_ => ApiResponse.Error(TestError.Default))
-                .And(() => ApiResponse.Ok(data2))
+                .Union(() => ApiResponse.Ok(data2))
                 .Then(mock.Object.Execute);
 
             mock
@@ -161,8 +161,8 @@ namespace Hattem.Api.Tests.Fluent
             var response = ApiResponse
                 .Ok(data1)
                 .Union(_ => ApiResponse.Ok(data2))
-                .And(() => ApiResponse.Ok(data3))
-                .And(() => ApiResponse.Ok(data4))
+                .Union(() => ApiResponse.Ok(data3))
+                .Union(() => ApiResponse.Ok(data4))
                 .Then(mock.Object.Execute);
 
             mock.Verify(v => v.Execute(data1, data2, data3, data4), Times.Once());
@@ -186,8 +186,8 @@ namespace Hattem.Api.Tests.Fluent
             var response = ApiResponse
                 .Ok(data1)
                 .Union(_ => ApiResponse.Error(TestError.Default))
-                .And(() => ApiResponse.Ok(data2))
-                .And(() => ApiResponse.Ok(data3))
+                .Union(() => ApiResponse.Ok(data2))
+                .Union(() => ApiResponse.Ok(data3))
                 .Then(mock.Object.Execute);
 
             mock
@@ -217,9 +217,9 @@ namespace Hattem.Api.Tests.Fluent
             var response = ApiResponse
                 .Ok(data1)
                 .Union(_ => ApiResponse.Ok(data2))
-                .And(() => ApiResponse.Ok(data3))
-                .And(() => ApiResponse.Ok(data4))
-                .And(() => ApiResponse.Ok(data5))
+                .Union(() => ApiResponse.Ok(data3))
+                .Union(() => ApiResponse.Ok(data4))
+                .Union(() => ApiResponse.Ok(data5))
                 .Then(mock.Object.Execute);
 
             mock.Verify(v => v.Execute(data1, data2, data3, data4, data5), Times.Once());
@@ -244,9 +244,9 @@ namespace Hattem.Api.Tests.Fluent
             var response = ApiResponse
                 .Ok(data1)
                 .Union(_ => ApiResponse.Error(TestError.Default))
-                .And(() => ApiResponse.Ok(data2))
-                .And(() => ApiResponse.Ok(data3))
-                .And(() => ApiResponse.Ok(data4))
+                .Union(() => ApiResponse.Ok(data2))
+                .Union(() => ApiResponse.Ok(data3))
+                .Union(() => ApiResponse.Ok(data4))
                 .Then(mock.Object.Execute);
 
             mock

@@ -1,5 +1,10 @@
 ﻿namespace Hattem.Api.Tests.Framework
 {
+    public interface ISyncResponseProvider<TOutput>
+    {
+        ApiResponse<TOutput> Execute();
+    }
+
     public interface ISyncResponseProvider<in TInput, TOutput>
     {
         ApiResponse<TOutput> Execute(TInput input);
