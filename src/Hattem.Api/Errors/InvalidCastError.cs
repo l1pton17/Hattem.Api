@@ -6,7 +6,7 @@ namespace Hattem.Api.Errors
     /// <summary>
     /// Invalid type cast
     /// </summary>
-    [ApiErrorStatusCode(HttpStatusCode.BadRequest)]
+    [ApiStatusCode(HttpStatusCode.BadRequest)]
     [ApiErrorCode(ApiErrorCodes.InvalidCast)]
     public sealed class InvalidCastError<T, U> : Error
     {

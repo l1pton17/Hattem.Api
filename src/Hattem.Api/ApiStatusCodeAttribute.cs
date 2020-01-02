@@ -7,16 +7,16 @@ namespace Hattem.Api
     /// Error status code
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class ApiErrorStatusCodeAttribute : Attribute
+    public sealed class ApiStatusCodeAttribute : Attribute
     {
         public int StatusCode { get; }
 
-        public ApiErrorStatusCodeAttribute(int statusCode)
+        public ApiStatusCodeAttribute(int statusCode)
         {
             StatusCode = statusCode;
         }
 
-        public ApiErrorStatusCodeAttribute(HttpStatusCode statusCode)
+        public ApiStatusCodeAttribute(HttpStatusCode statusCode)
         {
             StatusCode = (int) statusCode;
         }

@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F420E75B-C67
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5C30F4D0-4657-478B-AF7E-C6C958600B36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hattem.Api.Tests", "tests\Hattem.Api.Tests\Hattem.Api.Tests.csproj", "{A81DF346-F7B6-4972-B48E-873C0321B636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hattem.Api.Tests", "tests\Hattem.Api.Tests\Hattem.Api.Tests.csproj", "{A81DF346-F7B6-4972-B48E-873C0321B636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hattem.Api.NewtonsoftJson", "Hattem.Api.NewtonsoftJson\Hattem.Api.NewtonsoftJson.csproj", "{DB6683D8-FF9A-4AB6-AC7F-D429012462FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{A81DF346-F7B6-4972-B48E-873C0321B636}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A81DF346-F7B6-4972-B48E-873C0321B636}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A81DF346-F7B6-4972-B48E-873C0321B636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6683D8-FF9A-4AB6-AC7F-D429012462FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6683D8-FF9A-4AB6-AC7F-D429012462FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6683D8-FF9A-4AB6-AC7F-D429012462FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6683D8-FF9A-4AB6-AC7F-D429012462FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F5395188-B5D8-4FFE-991C-4C7F6B671DA9} = {F420E75B-C678-40DD-8F37-6968F0462BB3}
 		{A81DF346-F7B6-4972-B48E-873C0321B636} = {5C30F4D0-4657-478B-AF7E-C6C958600B36}
+		{DB6683D8-FF9A-4AB6-AC7F-D429012462FA} = {F420E75B-C678-40DD-8F37-6968F0462BB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88D74557-9D1B-4C2B-9FD4-4765066C8017}
