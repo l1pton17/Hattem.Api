@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hattem.Api.Tests", "tests\H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hattem.Api.NewtonsoftJson", "src\Hattem.Api.NewtonsoftJson\Hattem.Api.NewtonsoftJson.csproj", "{8333F3FB-2537-4338-8AAF-60DB63243DB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hattem.Api.NewtonsoftJson.Tests", "tests\Hattem.Api.NewtonsoftJson.Tests\Hattem.Api.NewtonsoftJson.Tests.csproj", "{81C34D68-7891-47D6-8837-4869606B94A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{8333F3FB-2537-4338-8AAF-60DB63243DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8333F3FB-2537-4338-8AAF-60DB63243DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8333F3FB-2537-4338-8AAF-60DB63243DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81C34D68-7891-47D6-8837-4869606B94A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C34D68-7891-47D6-8837-4869606B94A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81C34D68-7891-47D6-8837-4869606B94A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81C34D68-7891-47D6-8837-4869606B94A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{F5395188-B5D8-4FFE-991C-4C7F6B671DA9} = {F420E75B-C678-40DD-8F37-6968F0462BB3}
 		{A81DF346-F7B6-4972-B48E-873C0321B636} = {5C30F4D0-4657-478B-AF7E-C6C958600B36}
 		{8333F3FB-2537-4338-8AAF-60DB63243DB1} = {F420E75B-C678-40DD-8F37-6968F0462BB3}
+		{81C34D68-7891-47D6-8837-4869606B94A3} = {5C30F4D0-4657-478B-AF7E-C6C958600B36}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88D74557-9D1B-4C2B-9FD4-4765066C8017}

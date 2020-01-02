@@ -20,8 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Hattem.Api\Hattem.Api.csproj" />
-  </ItemGroup>
-
 </Project>
