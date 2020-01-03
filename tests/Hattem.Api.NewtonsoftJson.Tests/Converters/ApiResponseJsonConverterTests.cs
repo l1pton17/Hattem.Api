@@ -9,6 +9,8 @@ namespace Hattem.Api.NewtonsoftJson.Tests.Converters
     [CategoryTrait(nameof(ApiResponseJsonConverter) + " Tests")]
     public sealed class ApiResponseJsonConverterTests
     {
+
+
         private JObject Convert<T>(ApiResponse<T> response)
         {
             var jsonSerializerSettings = new JsonSerializerSettings
