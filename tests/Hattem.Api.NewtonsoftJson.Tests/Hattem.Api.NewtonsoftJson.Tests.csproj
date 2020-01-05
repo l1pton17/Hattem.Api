@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Hattem.Api.NewtonsoftJson\Hattem.Api.NewtonsoftJson.csproj" />
-    <ProjectReference Include="..\..\src\Hattem.Api\Hattem.Api.csproj" />
   </ItemGroup>
 
 </Project>

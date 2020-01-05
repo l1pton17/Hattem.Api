@@ -1,4 +1,5 @@
 ﻿using System;
+using Hattem.Api.NewtonsoftJson.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -33,12 +34,45 @@ namespace Hattem.Api.NewtonsoftJson.Converters
                 _isWriting = true;
 
                 var json = JObject.FromObject(value, serializer);
-                var isUnitOrHasErrors = value is ApiResponse<Unit> || json[ApiResponseConstants.Error] != null;
+                var jsonError = json[ApiResponseConstants.Error];
+                var hasError = jsonError != null && jsonError.Type != JTokenType.Null;
+                var isUnitOrHasErrors = value is ApiResponse<Unit> || hasError;
 
-                if (isUnitOrHasErrors)
+                JProperty dataPropertyToDelete = null;
+                JProperty errorPropertyToDelete = null;
+                JProperty statusCodePropertyToDelete = null;
+                JProperty isOkPropertyToDelete = null;
+                JProperty hasErrorsPropertyToDelete = null;
+
+                foreach (var property in json.Properties())
                 {
-                    json.Remove(ApiResponseConstants.Data);
+                    if (isUnitOrHasErrors && property.IsNameEquals(nameof(ApiResponse<int>.Data)))
+                    {
+                        dataPropertyToDelete = property;
+                    }
+                    else if (!hasError && property.IsNameEquals(nameof(ApiResponse<int>.Error)))
+                    {
+                        errorPropertyToDelete = property;
+                    }
+                    else if (property.IsNameEquals(nameof(ApiResponse<int>.StatusCode)))
+                    {
+                        statusCodePropertyToDelete = property;
+                    }
+                    else if (property.IsNameEquals(nameof(ApiResponse<int>.IsOk)))
+                    {
+                        isOkPropertyToDelete = property;
+                    }
+                    else if (property.IsNameEquals(nameof(ApiResponse<int>.HasErrors)))
+                    {
+                        hasErrorsPropertyToDelete = property;
+                    }
                 }
+
+                dataPropertyToDelete?.Remove();
+                errorPropertyToDelete?.Remove();
+                statusCodePropertyToDelete?.Remove();
+                isOkPropertyToDelete?.Remove();
+                hasErrorsPropertyToDelete?.Remove();
 
                 json.WriteTo(writer);
             }
@@ -60,7 +94,8 @@ namespace Hattem.Api.NewtonsoftJson.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(ApiResponse<>))
+            if (objectType.IsGenericType
+             && objectType.GetGenericTypeDefinition() == typeof(ApiResponse<>))
             {
                 return true;
             }

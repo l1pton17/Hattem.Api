@@ -6,16 +6,28 @@ namespace Hattem.Api
     public readonly struct ApiResponse<T> : IApiResponse<T>
     {
         /// <summary>
-        /// Данные ответа
+        /// Data
         /// </summary>
         public T Data { get; }
 
+        /// <summary>
+        /// Error
+        /// </summary>
         public Error Error { get; }
 
+        /// <summary>
+        /// Status code
+        /// </summary>
         public int? StatusCode { get; }
 
+        /// <summary>
+        /// Contains an error
+        /// </summary>
         public bool HasErrors => Error != null;
 
+        /// <summary>
+        /// Is response without errors
+        /// </summary>
         public bool IsOk => !HasErrors;
 
         public ApiResponse(T data)
