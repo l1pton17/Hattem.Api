@@ -34,6 +34,8 @@ namespace Hattem.Api.Fluent
 
             return ApiResponse.Ok();
         }
+
+        /// <summary>
         /// Execute <paramref name="action"/> for each item in <paramref name="source"/> consistently
         /// </summary>
         /// <typeparam name="T"></typeparam>
