@@ -7,76 +7,96 @@ namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {
-        public static async ValueTask<ApiResponse<TOutput>> Return<TInput, TOutput>(
+        public static ValueTask<ApiResponse<TOutput>> Return<TInput, TOutput>(
             this ApiResponse<TInput> source,
             Func<TInput, ValueTask<TOutput>> valueFactory
         )
         {
             if (source.HasErrors)
             {
-                return source.Error.ToResponse(To<TOutput>.Type);
+                return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
 
-            var value = await valueFactory(source.Data).ConfigureAwait(false);
+            return Async();
 
-            return ApiResponse.Ok(value);
+            async ValueTask<ApiResponse<TOutput>> Async()
+            {
+                var value = await valueFactory(source.Data).ConfigureAwait(false);
+
+                return ApiResponse.Ok(value);
+            }
         }
 
-        public static async ValueTask<ApiResponse<TOutput>> Return<T1, T2, TOutput>(
+        public static ValueTask<ApiResponse<TOutput>> Return<T1, T2, TOutput>(
             this ApiResponse<(T1, T2)> source,
             Func<T1, T2, ValueTask<TOutput>> valueFactory
         )
         {
             if (source.HasErrors)
             {
-                return source.Error.ToResponse(To<TOutput>.Type);
+                return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
 
-            var value = await valueFactory(
-                    source.Data.Item1,
-                    source.Data.Item2)
-                .ConfigureAwait(false);
+            return Async();
 
-            return ApiResponse.Ok(value);
+            async ValueTask<ApiResponse<TOutput>> Async()
+            {
+                var value = await valueFactory(
+                        source.Data.Item1,
+                        source.Data.Item2)
+                    .ConfigureAwait(false);
+
+                return ApiResponse.Ok(value);
+            }
         }
 
-        public static async ValueTask<ApiResponse<TOutput>> Return<T1, T2, T3, TOutput>(
+        public static ValueTask<ApiResponse<TOutput>> Return<T1, T2, T3, TOutput>(
             this ApiResponse<(T1, T2, T3)> source,
             Func<T1, T2, T3, ValueTask<TOutput>> valueFactory
         )
         {
             if (source.HasErrors)
             {
-                return source.Error.ToResponse(To<TOutput>.Type);
+                return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
 
-            var value = await valueFactory(
-                    source.Data.Item1,
-                    source.Data.Item2,
-                    source.Data.Item3)
-                .ConfigureAwait(false);
+            return Async();
 
-            return ApiResponse.Ok(value);
+            async ValueTask<ApiResponse<TOutput>> Async()
+            {
+                var value = await valueFactory(
+                        source.Data.Item1,
+                        source.Data.Item2,
+                        source.Data.Item3)
+                    .ConfigureAwait(false);
+
+                return ApiResponse.Ok(value);
+            }
         }
 
-        public static async ValueTask<ApiResponse<TOutput>> Return<T1, T2, T3, T4, TOutput>(
+        public static ValueTask<ApiResponse<TOutput>> Return<T1, T2, T3, T4, TOutput>(
             this ApiResponse<(T1, T2, T3, T4)> source,
             Func<T1, T2, T3, T4, ValueTask<TOutput>> valueFactory
         )
         {
             if (source.HasErrors)
             {
-                return source.Error.ToResponse(To<TOutput>.Type);
+                return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
 
-            var value = await valueFactory(
-                    source.Data.Item1,
-                    source.Data.Item2,
-                    source.Data.Item3,
-                    source.Data.Item4)
-                .ConfigureAwait(false);
+            return Async();
 
-            return ApiResponse.Ok(value);
+            async ValueTask<ApiResponse<TOutput>> Async()
+            {
+                var value = await valueFactory(
+                        source.Data.Item1,
+                        source.Data.Item2,
+                        source.Data.Item3,
+                        source.Data.Item4)
+                    .ConfigureAwait(false);
+
+                return ApiResponse.Ok(value);
+            }
         }
 
         public static ValueTask<ApiResponse<TOutput>> Return<T1, T2, T3, T4, T5, TOutput>(
