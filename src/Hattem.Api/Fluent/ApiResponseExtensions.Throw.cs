@@ -37,5 +37,20 @@ namespace Hattem.Api.Fluent
 
             return response.Throw();
         }
+
+        /// <summary>
+        /// Throws exception if <paramref name="source"/> has errors
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static async ValueTask<ApiResponse<T>> Throw<T>(
+                this ValueTask<ApiResponse<T>> source
+            )
+        {
+            var response = await source.ConfigureAwait(false);
+
+            return response.Throw();
+        }
     }
 }

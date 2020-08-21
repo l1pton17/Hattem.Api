@@ -10,8 +10,10 @@ namespace Hattem.Api.Tests.Fluent
     [CategoryTrait(nameof(ApiResponseExtensions.Cast) + " tests")]
     public sealed class CatchTests
     {
-        [Fact(DisplayName = "Should return error if exception was thrown")]
-        public async Task ThrowException_ReturnsError()
+        #region Task
+
+        [Fact(DisplayName = "(Task) Should return error if exception was thrown")]
+        public async Task Task_ThrowException_ReturnsError()
         {
             var response = await Task
                 .Run(() => throw new InvalidOperationException())
@@ -21,8 +23,8 @@ namespace Hattem.Api.Tests.Fluent
             Assert.IsType<ExceptionError>(response.Error);
         }
 
-        [Fact(DisplayName = "Should return ok if exception wasn't thrown")]
-        public async Task NoException_ReturnsOk()
+        [Fact(DisplayName = "(Task) Should return ok if exception wasn't thrown")]
+        public async Task Task_NoException_ReturnsOk()
         {
             var response = await Task
                 .Run(() => { })
@@ -31,8 +33,8 @@ namespace Hattem.Api.Tests.Fluent
             Assert.True(response.IsOk);
         }
 
-        [Fact(DisplayName = "Should return task result if exception wasn't thrown")]
-        public async Task NoException_TaskHasResult_ReturnsOk()
+        [Fact(DisplayName = "(Task) Should return task result if exception wasn't thrown")]
+        public async Task Task_NoException_TaskHasResult_ReturnsOk()
         {
             const int expectedData = 3;
 
@@ -43,5 +45,42 @@ namespace Hattem.Api.Tests.Fluent
             Assert.True(response.IsOk);
             Assert.Equal(expectedData, response.Data);
         }
+
+        #endregion
+
+        #region ValueTask
+
+        [Fact(DisplayName = "(ValueTask) Should return error if exception was thrown")]
+        public async Task ValueTask_ThrowException_ReturnsError()
+        {
+            var response = await new ValueTask(Task.FromException(new InvalidOperationException()))
+                .Catch();
+
+            Assert.True(response.HasErrors);
+            Assert.IsType<ExceptionError>(response.Error);
+        }
+
+        [Fact(DisplayName = "(ValueTask) Should return ok if exception wasn't thrown")]
+        public async Task ValueTask_NoException_ReturnsOk()
+        {
+            var response = await new ValueTask()
+                .Catch();
+
+            Assert.True(response.IsOk);
+        }
+
+        [Fact(DisplayName = "(ValueTask) Should return task result if exception wasn't thrown")]
+        public async Task ValueTask_NoException_TaskHasResult_ReturnsOk()
+        {
+            const int expectedData = 3;
+
+            var response = await new ValueTask<int>(expectedData)
+                .Catch();
+
+            Assert.True(response.IsOk);
+            Assert.Equal(expectedData, response.Data);
+        }
+
+        #endregion
     }
 }
