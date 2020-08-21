@@ -31,6 +31,11 @@ namespace Hattem.Api
             return _okAsync;
         }
 
+        public static ValueTask<ApiResponse<Unit>> OkAsyncValueTask()
+        {
+            return new ValueTask<ApiResponse<Unit>>(Ok());
+        }
+
         public static Task<ApiResponse<Unit>> OkAsync(int? statusCode)
         {
             static Task<ApiResponse<Unit>> ValueFactory(int s)
