@@ -1,6 +1,7 @@
 ﻿using System;
 using Hattem.Api.Extensions;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     public static partial class ApiResponseExtensions

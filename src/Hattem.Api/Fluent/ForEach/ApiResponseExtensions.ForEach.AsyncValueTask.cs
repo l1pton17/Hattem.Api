@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
@@ -13,9 +14,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static async Task<ApiResponse<Unit>> ForEach<T>(
+        public static async ValueTask<ApiResponse<Unit>> ForEach<T>(
             this IEnumerable<T> source,
-            Func<T, Task<ApiResponse<Unit>>> action)
+            Func<T, ValueTask<ApiResponse<Unit>>> action)
         {
             if (source == null)
             {
@@ -42,9 +43,9 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static async Task<ApiResponse<Unit>> ForEach<T>(
+        public static async ValueTask<ApiResponse<Unit>> ForEach<T>(
             this IEnumerable<T> source,
-            Func<T, int, Task<ApiResponse<Unit>>> action)
+            Func<T, int, ValueTask<ApiResponse<Unit>>> action)
         {
             if (source == null)
             {

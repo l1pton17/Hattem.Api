@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Hattem.Api.Fluent.ErrorPredicates;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
@@ -13,8 +13,8 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="errorPredicate">Predicate for errors</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<Unit>> SuppressErrors<T>(
-            this Task<ApiResponse<T>> source,
+        public static ApiResponse<Unit> SuppressErrors<T>(
+            this ApiResponse<T> source,
             IErrorPredicate errorPredicate)
         {
             if (errorPredicate == null)
@@ -22,9 +22,12 @@ namespace Hattem.Api.Fluent
                 throw new ArgumentNullException(nameof(errorPredicate));
             }
 
-            var response = await source.ConfigureAwait(false);
+            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            {
+                return ApiResponse.Ok();
+            }
 
-            return response.SuppressErrors(errorPredicate);
+            return source.AsUnit();
         }
 
         /// <summary>
@@ -34,18 +37,16 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="errorPredicate">Predicate for errors</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<Unit>> SuppressErrors<T>(
-            this Task<ApiResponse<T>> source,
+        public static ApiResponse<Unit> SuppressErrors<T>(
+            this ApiResponse<T> source,
             CodeErrorPredicate errorPredicate)
         {
-            var response = await source.ConfigureAwait(false);
-
-            if (response.HasErrors && errorPredicate.IsMatch(response.Error))
+            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
                 return ApiResponse.Ok();
             }
 
-            return response.AsUnit();
+            return source.AsUnit();
         }
 
         /// <summary>
@@ -55,18 +56,16 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="errorPredicate">Predicate for errors</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<Unit>> SuppressErrors<T>(
-            this Task<ApiResponse<T>> source,
+        public static ApiResponse<Unit> SuppressErrors<T>(
+            this ApiResponse<T> source,
             TypeErrorPredicate errorPredicate)
         {
-            var response = await source.ConfigureAwait(false);
-
-            if (response.HasErrors && errorPredicate.IsMatch(response.Error))
+            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
                 return ApiResponse.Ok();
             }
 
-            return response.AsUnit();
+            return source.AsUnit();
         }
 
         /// <summary>
@@ -77,19 +76,17 @@ namespace Hattem.Api.Fluent
         /// <param name="source"></param>
         /// <param name="errorPredicate">Predicate for errors</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<Unit>> SuppressErrors<T, TError>(
-            this Task<ApiResponse<T>> source,
+        public static ApiResponse<Unit> SuppressErrors<T, TError>(
+            this ApiResponse<T> source,
             ExactTypeErrorPredicate<TError> errorPredicate)
             where TError : Error
         {
-            var response = await source.ConfigureAwait(false);
-
-            if (response.HasErrors && errorPredicate.IsMatch(response.Error))
+            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
                 return ApiResponse.Ok();
             }
 
-            return response.AsUnit();
+            return source.AsUnit();
         }
     }
 }

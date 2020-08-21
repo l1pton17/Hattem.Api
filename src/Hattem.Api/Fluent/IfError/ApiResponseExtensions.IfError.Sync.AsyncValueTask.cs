@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Hattem.Api.Fluent.ErrorPredicates;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
@@ -14,10 +15,10 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T>(
+        public static ValueTask<ApiResponse<T>> IfError<T>(
             this ApiResponse<T> source,
             IErrorPredicate errorPredicate,
-            Func<Error, Task<ApiResponse<T>>> ifError)
+            Func<Error, ValueTask<ApiResponse<T>>> ifError)
         {
             if (errorPredicate == null)
             {
@@ -26,10 +27,10 @@ namespace Hattem.Api.Fluent
 
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
-                return await ifError(source.Error).ConfigureAwait(false);
+                return ifError(source.Error);
             }
 
-            return source;
+            return new ValueTask<ApiResponse<T>>(source);
         }
 
         /// <summary>
@@ -40,17 +41,17 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T>(
+        public static ValueTask<ApiResponse<T>> IfError<T>(
             this ApiResponse<T> source,
             CodeErrorPredicate errorPredicate,
-            Func<Error, Task<ApiResponse<T>>> ifError)
+            Func<Error, ValueTask<ApiResponse<T>>> ifError)
         {
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
-                return await ifError(source.Error).ConfigureAwait(false);
+                return ifError(source.Error);
             }
 
-            return source;
+            return new ValueTask<ApiResponse<T>>(source);
         }
 
         /// <summary>
@@ -62,18 +63,18 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T, TError>(
+        public static ValueTask<ApiResponse<T>> IfError<T, TError>(
             this ApiResponse<T> source,
             ExactTypeErrorPredicate<TError> errorPredicate,
-            Func<TError, Task<ApiResponse<T>>> ifError)
+            Func<TError, ValueTask<ApiResponse<T>>> ifError)
             where TError : Error
         {
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
-                return await ifError((TError) source.Error).ConfigureAwait(false);
+                return ifError((TError) source.Error);
             }
 
-            return source;
+            return new ValueTask<ApiResponse<T>>(source);
         }
 
         /// <summary>
@@ -84,17 +85,17 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T>(
+        public static ValueTask<ApiResponse<T>> IfError<T>(
             this ApiResponse<T> source,
             TypeErrorPredicate errorPredicate,
-            Func<Error, Task<ApiResponse<T>>> ifError)
+            Func<Error, ValueTask<ApiResponse<T>>> ifError)
         {
             if (source.HasErrors && errorPredicate.IsMatch(source.Error))
             {
-                return await ifError(source.Error).ConfigureAwait(false);
+                return ifError(source.Error);
             }
 
-            return source;
+            return new ValueTask<ApiResponse<T>>(source);
         }
     }
 }

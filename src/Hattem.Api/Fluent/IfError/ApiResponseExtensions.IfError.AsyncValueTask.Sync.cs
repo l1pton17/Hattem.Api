@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Hattem.Api.Fluent.ErrorPredicates;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
@@ -14,10 +15,10 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T>(
-            this Task<ApiResponse<T>> source,
+        public static async ValueTask<ApiResponse<T>> IfError<T>(
+            this ValueTask<ApiResponse<T>> source,
             IErrorPredicate errorPredicate,
-            Func<Error, Task<ApiResponse<T>>> ifError)
+            Func<Error, ApiResponse<T>> ifError)
         {
             if (errorPredicate == null)
             {
@@ -26,9 +27,7 @@ namespace Hattem.Api.Fluent
 
             var response = await source.ConfigureAwait(false);
 
-            return await response
-                .IfError(errorPredicate, ifError)
-                .ConfigureAwait(false);
+            return response.IfError(errorPredicate, ifError);
         }
 
         /// <summary>
@@ -39,16 +38,14 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T>(
-            this Task<ApiResponse<T>> source,
+        public static async ValueTask<ApiResponse<T>> IfError<T>(
+            this ValueTask<ApiResponse<T>> source,
             CodeErrorPredicate errorPredicate,
-            Func<Error, Task<ApiResponse<T>>> ifError)
+            Func<Error, ApiResponse<T>> ifError)
         {
             var response = await source.ConfigureAwait(false);
 
-            return await response
-                .IfError(errorPredicate, ifError)
-                .ConfigureAwait(false);
+            return response.IfErrorRef(ref errorPredicate, ifError);
         }
 
         /// <summary>
@@ -60,17 +57,15 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T, TError>(
-            this Task<ApiResponse<T>> source,
+        public static async ValueTask<ApiResponse<T>> IfError<T, TError>(
+            this ValueTask<ApiResponse<T>> source,
             ExactTypeErrorPredicate<TError> errorPredicate,
-            Func<TError, Task<ApiResponse<T>>> ifError)
+            Func<TError, ApiResponse<T>> ifError)
             where TError : Error
         {
             var response = await source.ConfigureAwait(false);
 
-            return await response
-                .IfError(errorPredicate, ifError)
-                .ConfigureAwait(false);
+            return response.IfErrorRef(ref errorPredicate, ifError);
         }
 
         /// <summary>
@@ -81,16 +76,14 @@ namespace Hattem.Api.Fluent
         /// <param name="errorPredicate">Predicate for error to execute <paramref name="ifError"/></param>
         /// <param name="ifError">Flow to execute in case of error</param>
         /// <returns></returns>
-        public static async Task<ApiResponse<T>> IfError<T>(
-            this Task<ApiResponse<T>> source,
+        public static async ValueTask<ApiResponse<T>> IfError<T>(
+            this ValueTask<ApiResponse<T>> source,
             TypeErrorPredicate errorPredicate,
-            Func<Error, Task<ApiResponse<T>>> ifError)
+            Func<Error, ApiResponse<T>> ifError)
         {
             var response = await source.ConfigureAwait(false);
 
-            return await response
-                .IfError(errorPredicate, ifError)
-                .ConfigureAwait(false);
+            return response.IfErrorRef(ref errorPredicate, ifError);
         }
     }
 }

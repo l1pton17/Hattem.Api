@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
@@ -14,12 +15,14 @@ namespace Hattem.Api.Fluent
         /// <param name="next"></param>
         public static async Task<ApiResponse<TOutput>> Then<TInput, TOutput>(
             this Task<ApiResponse<TInput>> source,
-            Func<TInput, ApiResponse<TOutput>> next
+            Func<TInput, ValueTask<ApiResponse<TOutput>>> next
         )
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.Then(next);
+            return await response
+                .Then(next)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -32,12 +35,14 @@ namespace Hattem.Api.Fluent
         /// <param name="next"></param>
         public static async Task<ApiResponse<TOutput>> Then<T1, T2, TOutput>(
             this Task<ApiResponse<(T1, T2)>> source,
-            Func<T1, T2, ApiResponse<TOutput>> next
+            Func<T1, T2, ValueTask<ApiResponse<TOutput>>> next
         )
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.Then(next);
+            return await response
+                .Then(next)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -51,12 +56,14 @@ namespace Hattem.Api.Fluent
         /// <param name="next"></param>
         public static async Task<ApiResponse<TOutput>> Then<T1, T2, T3, TOutput>(
             this Task<ApiResponse<(T1, T2, T3)>> source,
-            Func<T1, T2, T3, ApiResponse<TOutput>> next
+            Func<T1, T2, T3, ValueTask<ApiResponse<TOutput>>> next
         )
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.Then(next);
+            return await response
+                .Then(next)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -71,12 +78,14 @@ namespace Hattem.Api.Fluent
         /// <param name="next"></param>
         public static async Task<ApiResponse<TOutput>> Then<T1, T2, T3, T4, TOutput>(
             this Task<ApiResponse<(T1, T2, T3, T4)>> source,
-            Func<T1, T2, T3, T4, ApiResponse<TOutput>> next
+            Func<T1, T2, T3, T4, ValueTask<ApiResponse<TOutput>>> next
         )
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.Then(next);
+            return await response
+                .Then(next)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -92,12 +101,14 @@ namespace Hattem.Api.Fluent
         /// <param name="next"></param>
         public static async Task<ApiResponse<TOutput>> Then<T1, T2, T3, T4, T5, TOutput>(
             this Task<ApiResponse<(T1, T2, T3, T4, T5)>> source,
-            Func<T1, T2, T3, T4, T5, ApiResponse<TOutput>> next
+            Func<T1, T2, T3, T4, T5, ValueTask<ApiResponse<TOutput>>> next
         )
         {
             var response = await source.ConfigureAwait(false);
 
-            return response.Then(next);
+            return await response
+                .Then(next)
+                .ConfigureAwait(false);
         }
     }
 }

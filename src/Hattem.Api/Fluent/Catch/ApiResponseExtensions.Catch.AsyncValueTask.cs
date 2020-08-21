@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using Hattem.Api.Errors;
 
+// ReSharper disable once CheckNamespace
 namespace Hattem.Api.Fluent
 {
     partial class ApiResponseExtensions
     {
-        public static async Task<ApiResponse<Unit>> Catch(
-            this Task source)
+        public static async ValueTask<ApiResponse<Unit>> Catch(
+            this ValueTask source)
         {
             try
             {
@@ -23,8 +24,8 @@ namespace Hattem.Api.Fluent
             }
         }
 
-        public static async Task<ApiResponse<T>> Catch<T>(
-            this Task<T> source)
+        public static async ValueTask<ApiResponse<T>> Catch<T>(
+            this ValueTask<T> source)
         {
             try
             {
