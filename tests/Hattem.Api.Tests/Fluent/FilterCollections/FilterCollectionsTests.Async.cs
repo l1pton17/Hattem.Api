@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hattem.Api.Fluent;
@@ -15,6 +16,14 @@ namespace Hattem.Api.Tests.Fluent.FilterCollections
         #region Sync onError
 
         #region Async
+
+        [Fact(DisplayName = "(Async) Should throw exception when source is null")]
+        public void Async_SyncOnError_ThrowsException()
+        {
+            IEnumerable<int> source = null;
+
+            Assert.ThrowsAsync<ArgumentNullException>(() => source.Filter(_ => ApiResponse.OkAsync()));
+        }
 
         [Fact(DisplayName = "(Async, Sync onError) Should returns all items if predicate returns ok")]
         public async Task Async_SyncOnError_AllAreOk_Returns()
@@ -206,6 +215,14 @@ namespace Hattem.Api.Tests.Fluent.FilterCollections
         #region Boolean predicate
 
         #region Async
+
+        [Fact(DisplayName = "(Async, Boolean predicate) Should throw exception when source is null")]
+        public void Async_BooleanPredicate_ThrowsException()
+        {
+            IEnumerable<int> source = null;
+
+            Assert.ThrowsAsync<ArgumentNullException>(() => source.Filter(_ => ApiResponse.Boolean.TrueAsync));
+        }
 
         [Fact(DisplayName = "(Async, Boolean predicate) Should return only values where predicate returns true")]
         public async Task Async_BooleanPredicate_PredicateIsOk_ReturnsOnlyTrueValues()

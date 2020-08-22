@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hattem.Api.Fluent;
@@ -14,6 +15,14 @@ namespace Hattem.Api.Tests.Fluent.FilterCollections
     public sealed partial class FilterCollectionsTests
     {
         #region Sync onError
+
+        [Fact(DisplayName = "(Sync, Sync onError) Should throw exception when source is null")]
+        public void Sync_SyncOnError_SourceIsNull_ThrowsException()
+        {
+            IEnumerable<int> source = null;
+
+            Assert.Throws<ArgumentNullException>(() => source.Filter(_ => ApiResponse.Ok()));
+        }
 
         [Fact(DisplayName = "(Sync, Sync onError) Should returns all items if predicate returns ok")]
         public void Sync_SyncOnError_AllAreOk_Returns()
@@ -197,6 +206,14 @@ namespace Hattem.Api.Tests.Fluent.FilterCollections
         #endregion
 
         #region Boolean predicate
+
+        [Fact(DisplayName = "(Sync, Boolean predicate) Should throw exception when source is null")]
+        public void Sync_BooleanPredicate_SourceIsNull_ThrowsException()
+        {
+            IEnumerable<int> source = null;
+
+            Assert.Throws<ArgumentNullException>(() => source.Filter(_ => ApiResponse.Ok(true)));
+        }
 
         [Fact(DisplayName = "(Sync, Boolean predicate) Should return only values where predicate returns true")]
         public void Sync_BooleanPredicate_PredicateIsOk_ReturnsOnlyTrueValues()
