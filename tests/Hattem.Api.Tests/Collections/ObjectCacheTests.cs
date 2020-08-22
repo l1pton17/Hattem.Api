@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Hattem.Api.Collections;
 using Hattem.Api.Tests.Framework;
@@ -9,6 +10,14 @@ namespace Hattem.Api.Tests.Collections
     [CategoryTrait("ObjectCache")]
     public sealed class ObjectCacheTests
     {
+        [Theory(DisplayName = "Should throw exception when max capacity is less or equal than zero")]
+        [InlineData(-5)]
+        [InlineData(0)]
+        public void Ctor_MaxCapacityLessOrEqualZero_ThrowsException(int maxCapacity)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new ObjectCache<int, int>(maxCapacity));
+        }
+
         [Fact(DisplayName = "Should get or create object in multi-thread environment")]
         public async Task Get()
         {
