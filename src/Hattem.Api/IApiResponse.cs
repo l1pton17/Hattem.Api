@@ -2,7 +2,7 @@
 {
     public interface IApiResponse
     {
-        Error Error { get; }
+        Error? Error { get; }
 
         int? StatusCode { get; }
 
@@ -13,6 +13,6 @@
 
     public interface IApiResponse<out T> : IApiResponse
     {
-        T Data { get; }
+        T? Data { get; }
     }
 }

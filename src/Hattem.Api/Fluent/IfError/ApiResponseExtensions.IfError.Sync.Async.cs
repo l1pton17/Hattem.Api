@@ -25,7 +25,7 @@ namespace Hattem.Api.Fluent
                 throw new ArgumentNullException(nameof(errorPredicate));
             }
 
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return await ifError(source.Error).ConfigureAwait(false);
             }
@@ -46,7 +46,7 @@ namespace Hattem.Api.Fluent
             CodeErrorPredicate errorPredicate,
             Func<Error, Task<ApiResponse<T>>> ifError)
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return await ifError(source.Error).ConfigureAwait(false);
             }
@@ -69,7 +69,7 @@ namespace Hattem.Api.Fluent
             Func<TError, Task<ApiResponse<T>>> ifError)
             where TError : Error
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return await ifError((TError) source.Error).ConfigureAwait(false);
             }
@@ -90,7 +90,7 @@ namespace Hattem.Api.Fluent
             TypeErrorPredicate errorPredicate,
             Func<Error, Task<ApiResponse<T>>> ifError)
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return await ifError(source.Error).ConfigureAwait(false);
             }

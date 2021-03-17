@@ -63,6 +63,10 @@ namespace Hattem.Api.Tests
         [ApiStatusCode(402)]
         private class Error402 : Error
         {
+            public Error402()
+                : base("402", "402 error")
+            {
+            }
         }
     }
 }

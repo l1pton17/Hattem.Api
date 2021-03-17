@@ -12,7 +12,7 @@ namespace Hattem.Api.Fluent
             Func<TInput, ValueTask<TOutput>> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
@@ -21,7 +21,7 @@ namespace Hattem.Api.Fluent
 
             async ValueTask<ApiResponse<TOutput>> Async()
             {
-                var value = await valueFactory(source.Data).ConfigureAwait(false);
+                var value = await valueFactory(source.Data!).ConfigureAwait(false);
 
                 return ApiResponse.Ok(value);
             }
@@ -32,7 +32,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, ValueTask<TOutput>> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
@@ -55,7 +55,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, ValueTask<TOutput>> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
@@ -79,7 +79,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, ValueTask<TOutput>> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type).AsValueTask();
             }
@@ -104,7 +104,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, T5, ValueTask<TOutput>> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error
                     .ToResponse(To<TOutput>.Type)

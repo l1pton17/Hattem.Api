@@ -18,16 +18,16 @@ namespace Hattem.Api.Fluent
             Func<T1, ApiResponse<T2>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2)>(source.Error)
                     .WithStatusCode(source.StatusCode);
             }
 
-            var output = selector(source.Data);
+            var output = selector(source.Data!);
 
-            if (output.HasErrors)
+            if (output.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2)>(output.Error)
@@ -35,7 +35,7 @@ namespace Hattem.Api.Fluent
             }
 
             return ApiResponse
-                .Ok((source.Data, output.Data))
+                .Ok((source.Data!, output.Data!))
                 .WithStatusCode(source.StatusCode ?? output.StatusCode);
         }
 
@@ -53,7 +53,7 @@ namespace Hattem.Api.Fluent
             Func<ApiResponse<T3>> selector
         )
         {
-            return source.Union((t1, t2) => selector());
+            return source.Union((_, _) => selector());
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, ApiResponse<T3>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3)>(source.Error)
@@ -79,7 +79,7 @@ namespace Hattem.Api.Fluent
 
             var output = selector(source.Data.Item1, source.Data.Item2);
 
-            if (output.HasErrors)
+            if (output.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3)>(output.Error)
@@ -87,7 +87,7 @@ namespace Hattem.Api.Fluent
             }
 
             return ApiResponse
-                .Ok((source.Data.Item1, source.Data.Item2, output.Data))
+                .Ok((source.Data.Item1!, source.Data.Item2!, output.Data!))
                 .WithStatusCode(source.StatusCode ?? output.StatusCode);
         }
 
@@ -106,7 +106,7 @@ namespace Hattem.Api.Fluent
             Func<ApiResponse<T4>> selector
         )
         {
-            return source.Union((t1, t2, t3) => selector());
+            return source.Union((_, _, _) => selector());
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, ApiResponse<T4>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3, T4)>(source.Error)
@@ -136,7 +136,7 @@ namespace Hattem.Api.Fluent
                 source.Data.Item2,
                 source.Data.Item3);
 
-            if (output.HasErrors)
+            if (output.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3, T4)>(output.Error)
@@ -144,7 +144,7 @@ namespace Hattem.Api.Fluent
             }
 
             return ApiResponse
-                .Ok((source.Data.Item1, source.Data.Item2, source.Data.Item3, output.Data))
+                .Ok((source.Data.Item1!, source.Data.Item2!, source.Data.Item3!, output.Data!))
                 .WithStatusCode(source.StatusCode ?? output.StatusCode);
         }
 
@@ -166,10 +166,10 @@ namespace Hattem.Api.Fluent
         {
             return source.Union(
                 (
-                    t1,
-                    t2,
-                    t3,
-                    t4
+                    _,
+                    _,
+                    _,
+                    _
                 ) => selector());
         }
 
@@ -189,7 +189,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, ApiResponse<T5>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3, T4, T5)>(source.Error)
@@ -202,7 +202,7 @@ namespace Hattem.Api.Fluent
                 source.Data.Item3,
                 source.Data.Item4);
 
-            if (output.HasErrors)
+            if (output.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3, T4, T5)>(output.Error)
@@ -210,7 +210,7 @@ namespace Hattem.Api.Fluent
             }
 
             return ApiResponse
-                .Ok((source.Data.Item1, source.Data.Item2, source.Data.Item3, source.Data.Item4, output.Data))
+                .Ok((source.Data.Item1!, source.Data.Item2!, source.Data.Item3!, source.Data.Item4!, output.Data!))
                 .WithStatusCode(source.StatusCode ?? output.StatusCode);
         }
     }

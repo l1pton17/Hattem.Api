@@ -8,12 +8,12 @@ namespace Hattem.Api
         /// <summary>
         /// Data
         /// </summary>
-        public T Data { get; }
+        public T? Data { get; }
 
         /// <summary>
         /// Error
         /// </summary>
-        public Error Error { get; }
+        public Error? Error { get; }
 
         /// <summary>
         /// Status code
@@ -23,7 +23,7 @@ namespace Hattem.Api
         /// <summary>
         /// Contains an error
         /// </summary>
-        public bool HasErrors => Error != null;
+        public bool HasErrors => Error is not null;
 
         /// <summary>
         /// Is response without errors
@@ -44,13 +44,6 @@ namespace Hattem.Api
             Error = null;
         }
 
-        public ApiResponse(int? statusCode, T data, Error error)
-        {
-            Error = error;
-            Data = data;
-            StatusCode = statusCode;
-        }
-
         public ApiResponse(Error error)
         {
             Data = default;
@@ -65,14 +58,21 @@ namespace Hattem.Api
             Error = error ?? throw new ArgumentNullException(nameof(error));
         }
 
+        private ApiResponse(int? statusCode, T? data, Error? error)
+        {
+            Error = error;
+            Data = data;
+            StatusCode = statusCode;
+        }
+
         public ApiResponse<T> WithStatusCode(HttpStatusCode statusCode)
         {
-            return new ApiResponse<T>((int) statusCode, Data, Error);
+            return new((int) statusCode, Data, Error);
         }
 
         public ApiResponse<T> WithStatusCode(int? statusCode)
         {
-            return new ApiResponse<T>(statusCode, Data, Error);
+            return new(statusCode, Data, Error);
         }
     }
 }

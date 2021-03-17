@@ -11,16 +11,9 @@ namespace Hattem.Api.Fluent
             Func<TInput, ValueTask<ApiResponse<Unit>>> predicate
         )
         {
-            if (source.HasErrors)
-            {
-                return source.AsValueTask();
-            }
-
-            return Async();
-
             async ValueTask<ApiResponse<TInput>> Async()
             {
-                var predicateResponse = await predicate(source.Data).ConfigureAwait(false);
+                var predicateResponse = await predicate(source.Data!).ConfigureAwait(false);
 
                 if (predicateResponse.HasErrors)
                 {
@@ -29,6 +22,8 @@ namespace Hattem.Api.Fluent
 
                 return source;
             }
+
+            return source.HasErrors ? source.AsValueTask() : Async();
         }
     }
 }

@@ -20,12 +20,12 @@ namespace Hattem.Api.Fluent
             Func<TInput, Task<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
             }
 
-            return await next(source.Data).ConfigureAwait(false);
+            return await next(source.Data!).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, Task<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
             }
@@ -68,7 +68,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, Task<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
             }
@@ -96,7 +96,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, Task<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
             }
@@ -126,7 +126,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, T5, Task<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
             }

@@ -8,7 +8,8 @@ namespace Hattem.Api.Fluent
     partial class ApiResponseExtensions
     {
         public static async Task<ApiResponse<Unit>> Catch(
-            this Task source)
+            this Task source
+        )
         {
             try
             {
@@ -25,13 +26,30 @@ namespace Hattem.Api.Fluent
         }
 
         public static async Task<ApiResponse<T>> Catch<T>(
-            this Task<T> source)
+            this Task<T> source
+        )
         {
             try
             {
                 var data = await source.ConfigureAwait(false);
 
                 return ApiResponse.Ok(data);
+            }
+            catch (Exception e)
+            {
+                var error = new ExceptionError(e);
+
+                return ApiResponse.Error<T>(error);
+            }
+        }
+
+        public static async Task<ApiResponse<T>> Catch<T>(
+            this Task<ApiResponse<T>> source
+        )
+        {
+            try
+            {
+                return await source.ConfigureAwait(false);
             }
             catch (Exception e)
             {

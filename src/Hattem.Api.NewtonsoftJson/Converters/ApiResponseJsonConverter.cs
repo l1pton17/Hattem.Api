@@ -27,8 +27,15 @@ namespace Hattem.Api.NewtonsoftJson.Converters
 
         public override bool CanRead => false;
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
+            if (value == null)
+            {
+                writer.WriteNull();
+
+                return;
+            }
+
             try
             {
                 _isWriting = true;
@@ -38,11 +45,11 @@ namespace Hattem.Api.NewtonsoftJson.Converters
                 var hasError = jsonError != null && jsonError.Type != JTokenType.Null;
                 var isUnitOrHasErrors = value is ApiResponse<Unit> || hasError;
 
-                JProperty dataPropertyToDelete = null;
-                JProperty errorPropertyToDelete = null;
-                JProperty statusCodePropertyToDelete = null;
-                JProperty isOkPropertyToDelete = null;
-                JProperty hasErrorsPropertyToDelete = null;
+                JProperty? dataPropertyToDelete = null;
+                JProperty? errorPropertyToDelete = null;
+                JProperty? statusCodePropertyToDelete = null;
+                JProperty? isOkPropertyToDelete = null;
+                JProperty? hasErrorsPropertyToDelete = null;
 
                 foreach (var property in json.Properties())
                 {
@@ -50,7 +57,8 @@ namespace Hattem.Api.NewtonsoftJson.Converters
                     {
                         dataPropertyToDelete = property;
                     }
-                    else if (!hasError && property.IsNameEquals(nameof(ApiResponse<int>.Error)))
+                    else if (!hasError
+                     && property.IsNameEquals(nameof(ApiResponse<int>.Error)))
                     {
                         errorPropertyToDelete = property;
                     }
@@ -85,7 +93,7 @@ namespace Hattem.Api.NewtonsoftJson.Converters
         public override object ReadJson(
             JsonReader reader,
             Type objectType,
-            object existingValue,
+            object? existingValue,
             JsonSerializer serializer
         )
         {

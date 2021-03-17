@@ -19,7 +19,7 @@ namespace Hattem.Api.Fluent
             Func<T1, ValueTask<ApiResponse<T2>>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2)>(source.Error)
@@ -31,9 +31,9 @@ namespace Hattem.Api.Fluent
 
             async ValueTask<ApiResponse<(T1, T2)>> Async()
             {
-                var output = await selector(source.Data).ConfigureAwait(false);
+                var output = await selector(source.Data!).ConfigureAwait(false);
 
-                if (output.HasErrors)
+                if (output.Error is not null)
                 {
                     return ApiResponse
                         .Error<(T1, T2)>(output.Error)
@@ -41,7 +41,7 @@ namespace Hattem.Api.Fluent
                 }
 
                 return ApiResponse
-                    .Ok((source.Data, output.Data))
+                    .Ok((source.Data!, output.Data!))
                     .WithStatusCode(source.StatusCode ?? output.StatusCode);
             }
         }
@@ -60,7 +60,7 @@ namespace Hattem.Api.Fluent
             Func<ValueTask<ApiResponse<T3>>> selector
         )
         {
-            return source.Union((t1, t2) => selector());
+            return source.Union((_, _) => selector());
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, ValueTask<ApiResponse<T3>>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3)>(source.Error)
@@ -92,7 +92,7 @@ namespace Hattem.Api.Fluent
                 var output = await selector(source.Data.Item1, source.Data.Item2)
                     .ConfigureAwait(false);
 
-                if (output.HasErrors)
+                if (output.Error is not null)
                 {
                     return ApiResponse
                         .Error<(T1, T2, T3)>(output.Error)
@@ -100,7 +100,7 @@ namespace Hattem.Api.Fluent
                 }
 
                 return ApiResponse
-                    .Ok((source.Data.Item1, source.Data.Item2, output.Data))
+                    .Ok((source.Data.Item1!, source.Data.Item2!, output.Data!))
                     .WithStatusCode(source.StatusCode ?? output.StatusCode);
             }
         }
@@ -120,7 +120,7 @@ namespace Hattem.Api.Fluent
             Func<ValueTask<ApiResponse<T4>>> selector
         )
         {
-            return source.Union((t1, t2, t3) => selector());
+            return source.Union((_, _, _) => selector());
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, ValueTask<ApiResponse<T4>>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3, T4)>(source.Error)
@@ -156,7 +156,7 @@ namespace Hattem.Api.Fluent
                         source.Data.Item3)
                     .ConfigureAwait(false);
 
-                if (output.HasErrors)
+                if (output.Error is not null)
                 {
                     return ApiResponse
                         .Error<(T1, T2, T3, T4)>(output.Error)
@@ -164,7 +164,7 @@ namespace Hattem.Api.Fluent
                 }
 
                 return ApiResponse
-                    .Ok((source.Data.Item1, source.Data.Item2, source.Data.Item3, output.Data))
+                    .Ok((source.Data.Item1!, source.Data.Item2!, source.Data.Item3!, output.Data!))
                     .WithStatusCode(source.StatusCode ?? output.StatusCode);
             }
         }
@@ -187,10 +187,10 @@ namespace Hattem.Api.Fluent
         {
             return source.Union(
                 (
-                    t1,
-                    t2,
-                    t3,
-                    t4
+                    _,
+                    _,
+                    _,
+                    _
                 ) => selector());
         }
 
@@ -210,7 +210,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, ValueTask<ApiResponse<T5>>> selector
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return ApiResponse
                     .Error<(T1, T2, T3, T4, T5)>(source.Error)
@@ -229,7 +229,7 @@ namespace Hattem.Api.Fluent
                         source.Data.Item4)
                     .ConfigureAwait(false);
 
-                if (output.HasErrors)
+                if (output.Error is not null)
                 {
                     return ApiResponse
                         .Error<(T1, T2, T3, T4, T5)>(output.Error)
@@ -237,7 +237,7 @@ namespace Hattem.Api.Fluent
                 }
 
                 return ApiResponse
-                    .Ok((source.Data.Item1, source.Data.Item2, source.Data.Item3, source.Data.Item4, output.Data))
+                    .Ok((source.Data.Item1!, source.Data.Item2!, source.Data.Item3!, source.Data.Item4!, output.Data!))
                     .WithStatusCode(source.StatusCode ?? output.StatusCode);
             }
         }

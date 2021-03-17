@@ -8,7 +8,7 @@ namespace Hattem.Api.Fluent
     {
         public static ApiResponse<U> Cast<T, U>(this ApiResponse<T> input, To<U> _)
         {
-            if (input.IsOk)
+            if (input.Error is null)
             {
                 if (input.Data is U hadCast)
                 {

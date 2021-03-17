@@ -13,7 +13,7 @@ namespace Hattem.Api.Fluent
         public static ValueTask<ApiResponse<T>> Unwrap<T>(
             this ApiResponse<ValueTask<ApiResponse<T>>> source)
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return new ApiResponse<T>(
                         source.StatusCode,

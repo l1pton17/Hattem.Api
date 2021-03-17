@@ -18,7 +18,7 @@ namespace Hattem.Api.Fluent
             Func<T, ValueTask> onSuccess
         )
         {
-            if (source.IsOk)
+            if (source.Data is not null)
             {
                 await onSuccess(source.Data).ConfigureAwait(false);
             }

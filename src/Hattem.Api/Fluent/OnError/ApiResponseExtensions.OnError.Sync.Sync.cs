@@ -25,7 +25,7 @@ namespace Hattem.Api.Fluent
                 throw new ArgumentNullException(nameof(errorPredicate));
             }
 
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError(source.Error);
             }
@@ -47,7 +47,7 @@ namespace Hattem.Api.Fluent
             Action<Error> onError
         )
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError(source.Error);
             }
@@ -71,7 +71,7 @@ namespace Hattem.Api.Fluent
         )
             where TError : Error
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError((TError) source.Error);
             }
@@ -93,7 +93,7 @@ namespace Hattem.Api.Fluent
             Action<Error> onError
         )
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError(source.Error);
             }
@@ -185,7 +185,7 @@ namespace Hattem.Api.Fluent
             Action<Error> onError
         )
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError(source.Error);
             }
@@ -200,7 +200,7 @@ namespace Hattem.Api.Fluent
         )
             where TError : Error
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError((TError) source.Error);
             }
@@ -214,7 +214,7 @@ namespace Hattem.Api.Fluent
             Action<Error> onError
         )
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 onError(source.Error);
             }

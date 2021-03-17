@@ -17,11 +17,11 @@ namespace Hattem.Api.Fluent
 
         public static CodeErrorPredicate ByCode(
             string errorCode1,
-            string errorCode2 = null,
-            string errorCode3 = null
+            string? errorCode2 = null,
+            string? errorCode3 = null
         )
         {
-            return new CodeErrorPredicate(
+            return new(
                 errorCode1,
                 errorCode2,
                 errorCode3,
@@ -69,11 +69,11 @@ namespace Hattem.Api.Fluent
 
         public static TypeErrorPredicate ByType(
             Type errorType1,
-            Type errorType2 = null,
-            Type errorType3 = null
+            Type? errorType2 = null,
+            Type? errorType3 = null
         )
         {
-            return new TypeErrorPredicate(
+            return new(
                 errorType1,
                 errorType2,
                 errorType3,

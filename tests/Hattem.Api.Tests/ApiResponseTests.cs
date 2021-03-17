@@ -36,25 +36,6 @@ namespace Hattem.Api.Tests
             Assert.Null(response.StatusCode);
         }
 
-        [Fact(DisplayName = "IsOk should be false and HasErrors should be true if error and data are both not null")]
-        public void ErrorNotNullAndDataNotNull_IsOkFalse_HasErrorsTrue()
-        {
-            const int expectedStatusCode = 203;
-
-            var response = new ApiResponse<Unit>(
-                statusCode: expectedStatusCode,
-                Unit.Default,
-                TestError.Default);
-
-            Assert.True(response.HasErrors);
-            Assert.False(response.IsOk);
-            Assert.NotNull(response.Data);
-            Assert.NotNull(response.Error);
-            Assert.Equal(expectedStatusCode, response.StatusCode);
-            Assert.Equal(Unit.Default, response.Data);
-            Assert.Equal(TestError.Default, response.Error, ErrorComparer.Default);
-        }
-
         [Fact(DisplayName = "Should change status code by int WithStatusCode method")]
         public void WithStatusCode_Int32_ChangeStatusCode()
         {

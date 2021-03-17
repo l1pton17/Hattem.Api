@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 namespace Hattem.Api.Collections
 {
     internal sealed class ObjectCache<TKey, TValue>
+        where TKey : notnull
     {
         private readonly int _maxCapacity;
         private readonly ConcurrentDictionary<int, (TKey Key, TValue Value)> _values;
@@ -25,7 +26,7 @@ namespace Hattem.Api.Collections
         public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
             var index = key.GetHashCode() % _maxCapacity;
-            var (cacheKey, cacheValue) = _values.GetOrAdd(index, v => (key, valueFactory(key)));
+            var (cacheKey, cacheValue) = _values.GetOrAdd(index, _ => (key, valueFactory(key)));
 
             if (key.Equals(cacheKey))
             {
@@ -34,7 +35,7 @@ namespace Hattem.Api.Collections
 
             var value = valueFactory(key);
 
-            _values.AddOrUpdate(index, (key, value), (_, __) => (key, value));
+            _values.AddOrUpdate(index, (key, value), (_, _) => (key, value));
 
             return value;
         }

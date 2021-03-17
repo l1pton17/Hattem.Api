@@ -15,7 +15,7 @@ namespace Hattem.Api.Fluent
             this ApiResponse<T> source
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 throw new HattemApiException(source.Error);
             }

@@ -62,7 +62,7 @@ namespace Hattem.Api.Fluent
         {
             var response = await source.ConfigureAwait(false);
 
-            if (response.HasErrors && errorPredicate.IsMatch(response.Error))
+            if (response.Error is not null && errorPredicate.IsMatch(response.Error))
             {
                 return ApiResponse.Ok();
             }
@@ -85,7 +85,7 @@ namespace Hattem.Api.Fluent
         {
             var response = await source.ConfigureAwait(false);
 
-            if (response.HasErrors && errorPredicate.IsMatch(response.Error))
+            if (response.Error is not null && errorPredicate.IsMatch(response.Error))
             {
                 return ApiResponse.Ok();
             }

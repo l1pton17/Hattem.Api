@@ -9,7 +9,7 @@ namespace Hattem.Api.Fluent
             this ApiResponse<TInput> source
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return new ApiResponse<Unit>(source.StatusCode, source.Error);
             }

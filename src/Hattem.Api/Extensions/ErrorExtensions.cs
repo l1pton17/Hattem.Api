@@ -7,7 +7,7 @@ namespace Hattem.Api.Extensions
         public static ApiResponse<TData> ToResponse<TError, TData>(this TError error, To<TData> _)
             where TError : Error
         {
-            return new ApiResponse<TData>(error);
+            return new(error);
         }
 
         public static ApiResponse<TData> ToResponse<TError, TData>(this TError error, int? statusCode, To<TData> _)

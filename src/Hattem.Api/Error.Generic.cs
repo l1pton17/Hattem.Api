@@ -7,9 +7,5 @@
             : base(code, description, data)
         {
         }
-
-        protected Error()
-        {
-        }
     }
 }

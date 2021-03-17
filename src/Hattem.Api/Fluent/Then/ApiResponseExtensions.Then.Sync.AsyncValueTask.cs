@@ -20,14 +20,14 @@ namespace Hattem.Api.Fluent
             Func<TInput, ValueTask<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 var errorResponse = source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
 
                 return new ValueTask<ApiResponse<TOutput>>(errorResponse);
             }
 
-            return next(source.Data);
+            return next(source.Data!);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, ValueTask<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 var errorResponse = source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
 
@@ -69,7 +69,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, ValueTask<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 var errorResponse = source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
 
@@ -98,7 +98,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, ValueTask<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 var errorResponse = source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
 
@@ -129,7 +129,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, T5, ValueTask<ApiResponse<TOutput>>> next
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 var errorResponse = source.Error.ToResponse(source.StatusCode, To<TOutput>.Type);
 

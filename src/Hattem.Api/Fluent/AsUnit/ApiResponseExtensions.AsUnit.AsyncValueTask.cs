@@ -18,7 +18,7 @@ namespace Hattem.Api.Fluent
         {
             var response = await source.ConfigureAwait(false);
 
-            if (response.HasErrors)
+            if (response.Error is not null)
             {
                 return new ApiResponse<Unit>(response.StatusCode, response.Error);
             }

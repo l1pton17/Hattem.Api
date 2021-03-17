@@ -6,19 +6,19 @@ namespace Hattem.Api.Fluent.ErrorPredicates
 {
     public readonly struct CodeErrorPredicate : IErrorPredicate
     {
-        private readonly Func<Error, bool> _condition;
+        private readonly Func<Error, bool>? _condition;
 
-        private readonly string _errorCode1;
-        private readonly string _errorCode2;
-        private readonly string _errorCode3;
-        private readonly IEnumerable<string> _errorCodes;
+        private readonly string? _errorCode1;
+        private readonly string? _errorCode2;
+        private readonly string? _errorCode3;
+        private readonly IEnumerable<string>? _errorCodes;
 
         internal CodeErrorPredicate(
-            string errorCode1,
-            string errorCode2,
-            string errorCode3,
-            IEnumerable<string> errorCodes,
-            Func<Error, bool> condition
+            string? errorCode1,
+            string? errorCode2,
+            string? errorCode3,
+            IEnumerable<string>? errorCodes,
+            Func<Error, bool>? condition
         )
         {
             _errorCode1 = errorCode1;
@@ -28,7 +28,7 @@ namespace Hattem.Api.Fluent.ErrorPredicates
             _condition = condition;
         }
 
-        public bool IsMatch(Error error)
+        public bool IsMatch(Error? error)
         {
             if (error == null)
             {

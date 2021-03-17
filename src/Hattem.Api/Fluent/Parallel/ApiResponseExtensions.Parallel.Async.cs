@@ -28,7 +28,7 @@ namespace Hattem.Api.Fluent
                 throw new ArgumentNullException(nameof(source));
             }
 
-            ConcurrentQueue<ApiResponse<Unit>> errors = null;
+            ConcurrentQueue<ApiResponse<Unit>>? errors = null;
 
             await Task.WhenAll(
                 Partitioner

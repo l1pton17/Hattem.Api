@@ -11,12 +11,12 @@ namespace Hattem.Api.Fluent
             Func<TInput, Task<ApiResponse<Unit>>> predicate
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source;
             }
 
-            var predicateResponse = await predicate(source.Data).ConfigureAwait(false);
+            var predicateResponse = await predicate(source.Data!).ConfigureAwait(false);
 
             if (predicateResponse.HasErrors)
             {

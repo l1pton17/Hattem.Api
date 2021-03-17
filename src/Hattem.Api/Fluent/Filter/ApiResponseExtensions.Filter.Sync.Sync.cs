@@ -15,7 +15,7 @@ namespace Hattem.Api.Fluent
                 return source;
             }
 
-            var predicateResponse = predicate(source.Data);
+            var predicateResponse = predicate(source.Data!);
 
             if (predicateResponse.HasErrors)
             {

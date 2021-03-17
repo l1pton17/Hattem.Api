@@ -11,7 +11,7 @@ namespace Hattem.Api.Fluent
         public static async ValueTask<ApiResponse<ImmutableArray<TInput>>> Filter<TInput>(
             this IEnumerable<TInput> source,
             Func<TInput, ValueTask<ApiResponse<Unit>>> predicate,
-            Action<TInput, Error> onError = null
+            Action<TInput, Error>? onError = null
         )
         {
             if (source == null)
@@ -25,7 +25,7 @@ namespace Hattem.Api.Fluent
             {
                 var predicateResponse = await predicate(item).ConfigureAwait(false);
 
-                if (predicateResponse.HasErrors)
+                if (predicateResponse.Error is not null)
                 {
                     onError?.Invoke(item, predicateResponse.Error);
                 }
@@ -41,7 +41,7 @@ namespace Hattem.Api.Fluent
         public static async ValueTask<ApiResponse<ImmutableArray<TInput>>> Filter<TInput>(
             this IEnumerable<TInput> source,
             Func<TInput, ValueTask<ApiResponse<Unit>>> predicate,
-            Func<TInput, Error, ValueTask> onError
+            Func<TInput, Error, ValueTask>? onError
         )
         {
             if (source == null)
@@ -55,7 +55,7 @@ namespace Hattem.Api.Fluent
             {
                 var predicateResponse = await predicate(item).ConfigureAwait(false);
 
-                if (predicateResponse.HasErrors)
+                if (predicateResponse.Error is not null)
                 {
                     if (onError != null)
                     {

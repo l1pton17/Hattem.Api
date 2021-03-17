@@ -18,12 +18,12 @@ namespace Hattem.Api
 
         public static ApiResponse<Unit> Error(Error error)
         {
-            return new ApiResponse<Unit>(error);
+            return new(error);
         }
 
         public static ApiResponse<T> Error<T>(Error error)
         {
-            return new ApiResponse<T>(error);
+            return new(error);
         }
 
         public static Task<ApiResponse<Unit>> OkAsync()
@@ -33,7 +33,7 @@ namespace Hattem.Api
 
         public static ValueTask<ApiResponse<Unit>> OkAsyncValueTask()
         {
-            return new ValueTask<ApiResponse<Unit>>(Ok());
+            return new(Ok());
         }
 
         public static Task<ApiResponse<Unit>> OkAsync(int? statusCode)
@@ -50,12 +50,12 @@ namespace Hattem.Api
 
         public static ApiResponse<Unit> Ok()
         {
-            return new ApiResponse<Unit>();
+            return new();
         }
 
         public static ApiResponse<T> Ok<T>(T data)
         {
-            return new ApiResponse<T>(data);
+            return new(data);
         }
     }
 }

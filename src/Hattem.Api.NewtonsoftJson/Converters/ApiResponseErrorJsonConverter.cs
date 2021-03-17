@@ -9,15 +9,17 @@ namespace Hattem.Api.NewtonsoftJson.Converters
     {
         public override bool CanWrite => false;
 
-        public override void WriteJson(JsonWriter writer, Error value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Error? value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
 
-        public override Error ReadJson(
+#pragma warning disable 8764
+        public override Error? ReadJson(
+#pragma warning restore 8764
             JsonReader reader,
             Type objectType,
-            Error existingValue,
+            Error? existingValue,
             bool hasExistingValue,
             JsonSerializer serializer
         )
@@ -29,14 +31,9 @@ namespace Hattem.Api.NewtonsoftJson.Converters
 
             var json = JObject.Load(reader);
 
-            if (json == null)
-            {
-                return null;
-            }
-
-            string code = null;
-            string description = null;
-            JToken data = null;
+            string? code = null;
+            string? description = null;
+            JToken? data = null;
 
             foreach (var property in json.Properties())
             {
@@ -55,8 +52,8 @@ namespace Hattem.Api.NewtonsoftJson.Converters
             }
 
             return data != null
-                ? new Error(code, description, data)
-                : new Error(code, description);
+                ? new Error(code!, description!, data)
+                : new Error(code!, description!);
         }
     }
 }

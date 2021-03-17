@@ -17,7 +17,7 @@ namespace Hattem.Api.Fluent
             Action<T> onSuccess
         )
         {
-            if (source.IsOk)
+            if (source.Data is not null)
             {
                 onSuccess(source.Data);
             }

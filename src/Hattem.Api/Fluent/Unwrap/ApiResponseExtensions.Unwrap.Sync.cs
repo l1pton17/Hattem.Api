@@ -14,7 +14,7 @@ namespace Hattem.Api.Fluent
         public static ApiResponse<T> Unwrap<T>(
             this ApiResponse<ApiResponse<T>> source)
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return new ApiResponse<T>(
                     source.StatusCode,

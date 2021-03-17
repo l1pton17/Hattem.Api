@@ -12,7 +12,7 @@ namespace Hattem.Api
         /// <summary>
         /// Data
         /// </summary>
-        public object Data { get; }
+        public object? Data { get; }
 
         /// <summary>
         /// Description
@@ -23,10 +23,6 @@ namespace Hattem.Api
         /// Code
         /// </summary>
         public string Code { get; }
-
-        protected Error()
-        {
-        }
 
         public Error(string code, string description)
         {

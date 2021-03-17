@@ -11,7 +11,7 @@ namespace Hattem.Api.Fluent
             TOutput value
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type);
             }
@@ -24,12 +24,12 @@ namespace Hattem.Api.Fluent
             Func<TInput, TOutput> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type);
             }
 
-            return ApiResponse.Ok(valueFactory(source.Data));
+            return ApiResponse.Ok(valueFactory(source.Data!));
         }
 
         public static ApiResponse<TOutput> Return<T1, T2, TOutput>(
@@ -37,7 +37,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, TOutput> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type);
             }
@@ -52,7 +52,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, TOutput> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type);
             }
@@ -70,7 +70,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, TOutput> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type);
             }
@@ -89,7 +89,7 @@ namespace Hattem.Api.Fluent
             Func<T1, T2, T3, T4, T5, TOutput> valueFactory
         )
         {
-            if (source.HasErrors)
+            if (source.Error is not null)
             {
                 return source.Error.ToResponse(To<TOutput>.Type);
             }

@@ -22,7 +22,7 @@ namespace Hattem.Api.Fluent
                 throw new ArgumentNullException(nameof(errorPredicate));
             }
 
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return ApiResponse.Ok();
             }
@@ -60,7 +60,7 @@ namespace Hattem.Api.Fluent
             this ApiResponse<T> source,
             TypeErrorPredicate errorPredicate)
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return ApiResponse.Ok();
             }
@@ -81,7 +81,7 @@ namespace Hattem.Api.Fluent
             ExactTypeErrorPredicate<TError> errorPredicate)
             where TError : Error
         {
-            if (source.HasErrors && errorPredicate.IsMatch(source.Error))
+            if (source.Error is not null && errorPredicate.IsMatch(source.Error))
             {
                 return ApiResponse.Ok();
             }

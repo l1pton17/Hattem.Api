@@ -40,5 +40,21 @@ namespace Hattem.Api.Fluent
                 return ApiResponse.Error<T>(error);
             }
         }
+
+        public static async ValueTask<ApiResponse<T>> Catch<T>(
+            this ValueTask<ApiResponse<T>> source
+        )
+        {
+            try
+            {
+                return await source.ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                var error = new ExceptionError(e);
+
+                return ApiResponse.Error<T>(error);
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace Hattem.Api
 {
     public static class ErrorStatusCodeMapper
     {
-        private static readonly ConcurrentDictionary<Type, int?> _cache = new ConcurrentDictionary<Type, int?>();
+        private static readonly ConcurrentDictionary<Type, int?> _cache = new();
 
         static ErrorStatusCodeMapper()
         {
@@ -15,7 +15,7 @@ namespace Hattem.Api
 
         public static int Map<T>(ApiResponse<T> response)
         {
-            if (response.IsOk)
+            if (response.Error is null)
             {
                 return response.StatusCode
                  ?? (response.Data != null ? GetStatusCode(response.Data.GetType()) : null)

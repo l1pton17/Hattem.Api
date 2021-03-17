@@ -6,19 +6,19 @@ namespace Hattem.Api.Fluent.ErrorPredicates
 {
     public readonly struct TypeErrorPredicate : IErrorPredicate
     {
-        private readonly Func<Error, bool> _condition;
+        private readonly Func<Error, bool>? _condition;
 
-        private readonly Type _errorType1;
-        private readonly Type _errorType2;
-        private readonly Type _errorType3;
-        private readonly IEnumerable<Type> _errorTypes;
+        private readonly Type? _errorType1;
+        private readonly Type? _errorType2;
+        private readonly Type? _errorType3;
+        private readonly IEnumerable<Type>? _errorTypes;
 
         internal TypeErrorPredicate(
-            Type errorType1,
-            Type errorType2,
-            Type errorType3,
-            IEnumerable<Type> errorTypes,
-            Func<Error, bool> condition
+            Type? errorType1,
+            Type? errorType2,
+            Type? errorType3,
+            IEnumerable<Type>? errorTypes,
+            Func<Error, bool>? condition
         )
         {
             _errorType1 = errorType1;
@@ -28,7 +28,7 @@ namespace Hattem.Api.Fluent.ErrorPredicates
             _condition = condition;
         }
 
-        public bool IsMatch(Error error)
+        public bool IsMatch(Error? error)
         {
             if (error == null)
             {
